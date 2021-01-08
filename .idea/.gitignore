@@ -1,2 +1,7 @@
 # Default ignored files
 /workspace.xml
+/misc.xml
+/modules.xml
+/inspectionProfiles/Project_Default.xml
+/todos-lingar-poc.iml
+/vcs.xml
