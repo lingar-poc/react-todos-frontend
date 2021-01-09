@@ -11,7 +11,12 @@ export function Users(props) {
         return (
             <div key={idx}
                  className={props.store.selectedUser === item.id ? 'selectedUser' : ''}
-
+                onClick={()=>{
+                    props.select({
+                        type: 'select',
+                        id: item.id
+                    })
+                }}
             >
                 Name = {item.name}</div>
         )

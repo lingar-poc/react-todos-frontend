@@ -23,13 +23,13 @@ function App() {
         selectedUser: users[0].id
 
     }
-    const [userStore, dispatch] = useReducer(initialUsers)
+    const [userStore, dispatch] = useReducer(selectUser, initialUsers);
 
 
     return (
         <div className="">
             <p>with the help of God</p>
-            <Users data = {users} store ={initialUsers}/>
+            <Users data = {users} store ={userStore} select = {dispatch}/>
 
         </div>
     );
