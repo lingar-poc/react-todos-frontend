@@ -4,6 +4,7 @@ import React, {useReducer} from 'react';
 
 import './App.css';
 import {Users} from './features/users/Users';
+import {Dashboard} from "./features/common/Dashboard";
 
 
 
@@ -25,10 +26,13 @@ function App() {
     }
     const [userStore, dispatch] = useReducer(selectUser, initialUsers);
 
-
+//const found = array1.find(element => element > 10);
     return (
         <div className="">
+            {userStore.selectedUser}
             <p>with the help of God</p>
+            <Dashboard user = {userStore.users.find(user => user.id === userStore.selectedUser)}/>
+
             <Users data = {users} store ={userStore} select = {dispatch}/>
 
         </div>
