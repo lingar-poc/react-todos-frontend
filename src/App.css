@@ -27,6 +27,9 @@
 .App-link {
   color: #61dafb;
 }
+.selectedUser{
+  background: orange;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -35,4 +38,5 @@
   to {
     transform: rotate(360deg);
   }
+
 }

@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import {Users} from './features/users/Users';
 
+
+
 function App() {
     //initializing data:
     let users = [];
@@ -24,10 +26,24 @@ function App() {
     return (
         <div className="">
             <p>with the help of God</p>
-            <Users data = {users}/>
+            <Users data = {users} store ={usersStore}/>
 
         </div>
     );
 }
+//reducer functions
+function selectUser(usersStore, action) {
+    switch(action.type) {
+        case 'select':
+            return {
+                ...usersStore,
+                selectedUser: action.id,
+            }
+        default:
+            return usersStore;
+    }
+
+}
+
 
 export default App;
