@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 export function Users(props) {
     const [val, setVal] = useState('default value');
+    const list = props.data.map((item, idx)=>{
+        return<div key={idx}>Name = {item.name}</div>
+    })
     
     return (
         <div>
@@ -11,6 +14,7 @@ export function Users(props) {
             <p>Hooks POCss</p>
             <p>{val}</p>
             <button onClick={() => setVal('changed values')}>Change value</button>
+            {list}
         </div>
     );
 }
