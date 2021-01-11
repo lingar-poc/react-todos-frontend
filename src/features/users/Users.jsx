@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 
 
 export function Users(props) {
+    const [newUserName, setUserName] = useState("");
+    const addUser =()=> {
+
+    }
     const [val, setVal] = useState('default value');
     const list = props.data.map((item, idx) => {
         return <div key={idx}>Name = {item.name}</div>
-    })
+    });
+
     const list2 = props.store.users.map((item, idx) => {
         return (
             <div key={idx}
                  className={props.store.selectedUser === item.id ? 'selectedUser' : ''}
-                onClick={()=>{
-                    props.select({
-                        type: 'select',
-                        id: item.id
-                    })
-                }}
+                 onClick={() => {
+                     props.select({
+                         type: 'select',
+                         id: item.id
+                     })
+                 }}
             >
                 Name = {item.name}</div>
         )
@@ -30,6 +35,17 @@ export function Users(props) {
             {list}
             <h2>List by store </h2>
             {list2}
+
+            <div>Create new user : </div>
+            <input value = {newUserName} onChange={(event)=>setUserName(event.target.value)}/>
+            <button
+                onClick={() => {
+                    props.select({
+                        type: 'ADD',
+                        name: newUserName
+                    })
+                }}
+            >Add new User</button>
         </div>
     );
 }
