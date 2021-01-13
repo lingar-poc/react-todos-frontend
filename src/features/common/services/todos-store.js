@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from "uuid";
 import {DataAction, handleData} from "./dataServices";
 
-export function  manageStore(todosStore, action) {
+export  function  manageStore(todosStore, action) {
     switch (action.type) {
         case 'GET'://todo
 
@@ -30,18 +30,18 @@ export function  manageStore(todosStore, action) {
             todosStore.todos.push(item);
 
 
-
-             handleData(dataAction).then(item => {
-                console.log("item = ?? ", todosStore.todos)
-                // todosStore.todos.push(item);
-                return {
-                    ...todosStore
-                }
-            }, (err) => {
-                console.error("error occurred - ", err);
-                return {...todosStore};
-            });
-            console.log("getting here ???")
+            // let promise = await handleData(dataAction);
+            //  handleData(dataAction).then(item => {
+            //     console.log("item = ?? ", todosStore.todos)
+            //     // todosStore.todos.push(item);
+            //     return {
+            //         ...todosStore
+            //     }
+            // }, (err) => {
+            //     console.error("error occurred - ", err);
+            //     return {...todosStore};
+            // });
+            console.log("getting here ???", todosStore)
             return {...todosStore};
 
 

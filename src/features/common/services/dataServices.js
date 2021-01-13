@@ -19,7 +19,7 @@ export function removeData() {
 }
 
 //todo - get, add, delete , update (mark)
-export function handleData(dataAction) {
+export async function handleData(dataAction) {
     console.log("data action = " , dataAction)
     const action = new DataAction(dataAction);
     //todo function for localstorage and liveServer separately
