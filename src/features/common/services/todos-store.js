@@ -61,6 +61,42 @@ export function manageStore(todosStore, action) {
 
             }
         }
+        case 'UPDATE': {
+            let itemToUpdate = todosStore.todos.findIndex((item) => {
+                return item.id === action.id
+            });
+            console.log("abc")
+
+            if (itemToUpdate > -1) {
+                // usersStore.selectedUse = "5a8eb49b-d36b-457d-9b18-b757bbd99053";
+                // usersStore.todos = usersStore.todos.splice(itemToRemove, 1 );
+                console.log("??" ,!todosStore.todos[itemToUpdate].mark)
+                // todosStore.todos[itemToUpdate].mark = !todosStore.todos[itemToUpdate].mark;
+                todosStore.todos[itemToUpdate].mark = action.mark;
+
+
+                console.log("todos ? ", todosStore.todos, todosStore.todos.find(user => user.id === todosStore.todos[1].id));
+                console.log(todosStore.todos);
+                // newArr = todosStore.todos.splice(itemToRemove, 1 );
+                // todosStore.todos = todosStore.todos.splice(itemToRemove, 1 );
+
+            }
+
+            console.log("todosStore.selectedUser =", todosStore.todos[itemToUpdate]);
+            let dataAction = new DataAction(
+                {
+                    localStorage: true,
+                    actionType: 'UPDATE',
+                    item:{id: action.id}
+                }
+            );
+            handleData(dataAction);
+            return {
+                ...todosStore,
+
+            }
+        }
+
         default:
             return todosStore;
     }
