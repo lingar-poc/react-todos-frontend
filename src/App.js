@@ -52,6 +52,8 @@ function handleUser(usersStore, action) {
             }
         case 'ADD': {
             console.log("add...")
+            console.log("add2...", usersStore.users);
+
             if (action.name === "") {
                 alert("User name cannot be empty");
                 return {...usersStore};
@@ -84,20 +86,38 @@ function handleUser(usersStore, action) {
             }
         }
         case 'REMOVE': {
-            console.log("remove...");
-            let itemToRemove = usersStore.users.findIndex((item)=>{
-               // return  item.id === action.id
+            console.log("remove...", usersStore.users);
+            let itemToRemove = usersStore.users.findIndex((item) => {
+                return item.id === action.id
             });
+            console.log("after...", usersStore.users);
+
+            console.log('idx = ' + itemToRemove);
             let newArr = [];
-            if (itemToRemove>-1){
+            if (itemToRemove > -1) {
                 // usersStore.selectedUse = "5a8eb49b-d36b-457d-9b18-b757bbd99053";
-                itemToRemove === 0 ?  usersStore.selectedUser = usersStore.users[1].id: usersStore.selectedUser = usersStore.users[0].id;
+                // usersStore.users = usersStore.users.splice(itemToRemove, 1 );
+                usersStore.users.splice(itemToRemove, 1);
+
+
+                console.log("users ? ", usersStore.users, usersStore.users.find(user => user.id === usersStore.users[1].id));
+                console.log(usersStore.users);
+                itemToRemove === 0 ? usersStore.selectedUser = usersStore.users[1].id : usersStore.selectedUser = usersStore.users[0].id;
                 // newArr = usersStore.users.splice(itemToRemove, 1 );
-                usersStore.users = usersStore.users.splice(itemToRemove, 1 );
-                console.log("users ? ",usersStore.users, usersStore.users.find(user => user.id === usersStore.users[1].id) );
+                // usersStore.users = usersStore.users.splice(itemToRemove, 1 );
+
             }
 
-            console.log("usersStore.selectedUser =" , usersStore.selectedUser )
+            console.log("usersStore.selectedUser =", usersStore);
+            let dataAction = new DataAction(
+                {
+                    localStorage: true,
+                    actionType: 'REMOVE',
+                    itemType: 'users',
+                    id: action.id
+                }
+            );
+            handleData(dataAction);
             return {
                 ...usersStore,
 

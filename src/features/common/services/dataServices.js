@@ -25,17 +25,22 @@ export function handleData(dataAction) {
 
 
         }
-        else if(action.localStorage === "REMOVE"){
+        else if(action.actionType === "REMOVE"){
             let data;
             localStorage.getItem(action.itemType) ? data = JSON.parse( localStorage.getItem(action.itemType)) : data = [];
-            let itemToRemove = data.users.findIndex((item)=>{
+            console.log("localstorage before remove", data);
+
+            let itemToRemove = data.findIndex((item)=>{
                 return  item.id === action.id
             });
-            if (itemToRemove>-1){
-                itemToRemove === 0 ?  data.selectedUser = data.users[1].id: data.selectedUser = data.users[0].id;
+            console.log("index ? " + itemToRemove, action.id)
 
-                data.users.splice(itemToRemove, 1 );
-                console.log("data ? ",data.users, data.users.find(user => user.id === data.users[1].id) );
+            if (itemToRemove>-1){
+                // itemToRemove === 0 ?  data.selectedUser = data.users[1].id: data.selectedUser = data.users[0].id;
+                console.log("index ? " + itemToRemove)
+                data.splice(itemToRemove, 1 );
+                console.log("localstorage after remove", data);
+
                 localStorage.setItem('users', JSON.stringify(data));
 
             }
@@ -51,6 +56,7 @@ export function DataAction(action) {
     this.actionType = action.actionType;
     this.item = action.item;
     this.itemType = action.itemType;
+    this.id = action.id;
 
 }
 
