@@ -36,7 +36,7 @@ function App() {
             <p>with the help of God</p>
             <Dashboard user={userStore.users.find(user => user.id === userStore.selectedUser)}/>
 
-            <Users data={users} store={userStore} select={dispatchUserAction}/>
+            <Users data={users} store={userStore} userAction={dispatchUserAction}/>
 
         </div>
     );
@@ -81,6 +81,26 @@ function handleUser(usersStore, action) {
             return {
                 ...usersStore,
                 // users: usersStore.users.push({name: action.name,  id: uuidv4(), generalResources: [{todos: null}]})
+            }
+        }
+        case 'REMOVE': {
+            console.log("remove...");
+            let itemToRemove = usersStore.users.findIndex((item)=>{
+               // return  item.id === action.id
+            });
+            let newArr = [];
+            if (itemToRemove>-1){
+                // usersStore.selectedUse = "5a8eb49b-d36b-457d-9b18-b757bbd99053";
+                itemToRemove === 0 ?  usersStore.selectedUser = usersStore.users[1].id: usersStore.selectedUser = usersStore.users[0].id;
+                // newArr = usersStore.users.splice(itemToRemove, 1 );
+                usersStore.users = usersStore.users.splice(itemToRemove, 1 );
+                console.log("users ? ",usersStore.users, usersStore.users.find(user => user.id === usersStore.users[1].id) );
+            }
+
+            console.log("usersStore.selectedUser =" , usersStore.selectedUser )
+            return {
+                ...usersStore,
+
             }
         }
         default:
