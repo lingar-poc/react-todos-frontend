@@ -40,3 +40,35 @@
   }
 
 }
+
+
+
+/*Todo style*/
+.todo{
+  width: 80%;
+  padding: 10px;
+  height: 40px;
+  border: solid 2px black ;
+  border-radius: 5px ;
+  margin-left: 10%;
+}
+
+.done{
+  background: aquamarine;
+
+}
+.not-done{
+  background: lightcoral;
+}
+.description{
+  position: relative;
+  width: 80%;
+  display: inline-block;
+}
+.mark{
+  position: relative;
+  display: inline-block;
+  border-left: 2px solid black;
+  height: 100%;
+
+}

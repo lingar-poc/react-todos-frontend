@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-
+/**
+ * TODO :
+ * - convert to todos
+ * - Make style simple radius border, with some padding.
+ * - Make circle symbol which changed.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export function Users(props) {
     const [newUserName, setUserName] = useState("");
     const addUser = () => {

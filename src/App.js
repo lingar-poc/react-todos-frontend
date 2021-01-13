@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import {v4 as uuidv4} from 'uuid';
 import React, {useReducer} from 'react';
+import {Todo} from "./features/todo/Todo";
 
 import './App.css';
 import {Users} from './features/users/Users';
@@ -37,6 +38,7 @@ function App() {
             <Dashboard user={userStore.users.find(user => user.id === userStore.selectedUser)}/>
 
             <Users data={users} store={userStore} userAction={dispatchUserAction}/>
+            <Todo description = "do something!"/>
 
         </div>
     );

@@ -13,10 +13,11 @@ export function SaveData(dataAction) {
 export function removeData() {
 
 }
-
+//todo - get, add, delete , update (mark)
 export function handleData(dataAction) {
     const action = new DataAction(dataAction);
-    if (action.localStorage) {
+    //todo function for localstorage and liveServer separately
+    if (action.localStorage) {//todo switch
         if (action.actionType === "SAVE") {
             let data;
             localStorage.getItem(action.itemType) ? data = JSON.parse( localStorage.getItem(action.itemType)) : data = [];
