@@ -39,7 +39,7 @@ export function DataAction(action) {
 
 }
 
-function localStorageDataManagement(actionType, item) {
+async  function localStorageDataManagement(actionType, item) {
 
 
     switch (actionType) {
