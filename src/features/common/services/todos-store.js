@@ -3,17 +3,14 @@ import {DataAction, handleData} from "./dataServices";
 
 //TODO - do it with promises support
 export function manageStore(todosStore, action) {
+    console.log("Manage store");
     switch (action.type) {
         case 'GET'://todo
-
             return {
                 ...todosStore,
                 selectedUser: action.id,
             }
         case 'POST': {
-            console.log("add...", action)
-            console.log("add2...", todosStore.todos);
-
             if (action.description === "") {
                 alert("Description cannot be empty");
                 return {...todosStore};
@@ -31,36 +28,31 @@ export function manageStore(todosStore, action) {
             return {...todosStore};
         }
 
-        case 'REMOVE': {
-            console.log("remove...", todosStore.users);
-            let itemToRemove = todosStore.users.findIndex((item) => {
+        case 'DELETE': {
+            let itemToRemove = todosStore.todos.findIndex((item) => {
                 return item.id === action.id
             });
-            console.log("after...", todosStore.users);
+            console.log("jjj")
 
-            console.log('idx = ' + itemToRemove);
-            let newArr = [];
             if (itemToRemove > -1) {
                 // usersStore.selectedUse = "5a8eb49b-d36b-457d-9b18-b757bbd99053";
                 // usersStore.todos = usersStore.todos.splice(itemToRemove, 1 );
-                todosStore.users.splice(itemToRemove, 1);
+                todosStore.todos.splice(itemToRemove, 1);
 
 
-                console.log("todos ? ", todosStore.users, todosStore.users.find(user => user.id === todosStore.users[1].id));
-                console.log(todosStore.users);
-                itemToRemove === 0 ? todosStore.selectedUser = todosStore.users[1].id : todosStore.selectedUser = todosStore.users[0].id;
-                // newArr = usersStore.todos.splice(itemToRemove, 1 );
-                // usersStore.todos = usersStore.todos.splice(itemToRemove, 1 );
+                console.log("todos ? ", todosStore.todos, todosStore.todos.find(user => user.id === todosStore.todos[1].id));
+                console.log(todosStore.todos);
+                // newArr = todosStore.todos.splice(itemToRemove, 1 );
+                // todosStore.todos = todosStore.todos.splice(itemToRemove, 1 );
 
             }
 
-            console.log("usersStore.selectedUser =", todosStore);
+            console.log("todosStore.selectedUser =", todosStore);
             let dataAction = new DataAction(
                 {
                     localStorage: true,
-                    actionType: 'REMOVE',
-                    itemType: 'users',
-                    id: action.id
+                    actionType: 'DELETE',
+                    item:{id: action.id}
                 }
             );
             handleData(dataAction);

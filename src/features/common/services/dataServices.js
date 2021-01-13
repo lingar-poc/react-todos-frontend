@@ -41,12 +41,13 @@ export function DataAction(action) {
 
 function localStorageDataManagement(actionType, item) {
 
-
+    console.log("action type - " + actionType)
     switch (actionType) {
         case 'GET': {
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
         }
+        break;
         case 'POST': {
             console.log("post ? ")
             let data = [];
@@ -55,8 +56,34 @@ function localStorageDataManagement(actionType, item) {
             data.push(item);
             localStorage.setItem(itemName, JSON.stringify(data));
         }
+        break;
+
+        case"DELETE":{
+            console.log("data ser")
+            let data;
+            localStorage.getItem(itemName) ? data = JSON.parse( localStorage.getItem(itemName)) : data = [];
+            console.log("localstorage before remove", data);
+
+            let itemToRemove = data.findIndex((el)=>{
+                return  item.id === el.id
+            });
+            console.log("index ? " + itemToRemove, item)
+
+            if (itemToRemove>-1){
+                console.log("index ? " + itemToRemove)
+                data.splice(itemToRemove, 1 );
+                console.log("localstorage after remove", data);
+
+                localStorage.setItem(itemName, JSON.stringify(data));
+
+            }
+            // data.push(action.item);
+            // localStorage.setItem('todos', JSON.stringify(data));
+
+        }
+        break;
         default:
-            return Promise.reject();
+            return null;
     }
 
     // case (actionType.actionType === "SAVE"): {

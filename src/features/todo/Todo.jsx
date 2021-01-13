@@ -14,7 +14,10 @@ export function Todo(props) {
     return (
         <div className={"todo " + (mark ? " done" : "not-done")}>
             <div className="description">{mark ? "DONE!" : "TODO..."} : {props.description}</div>
-            <div className="mark delete" onClick={() => alert("TODO - delete action")}>
+            <div className="mark delete" onClick={() => props.action({
+                type: "DELETE",
+                id: props.id
+            })}>
                 <span className="icon">Delete  &#9747;</span>
             </div>
             <div className="mark" onClick={() => tick(!mark)}>
