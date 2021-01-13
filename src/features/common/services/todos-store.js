@@ -87,7 +87,7 @@ export function manageStore(todosStore, action) {
                 {
                     localStorage: true,
                     actionType: 'UPDATE',
-                    item:{id: action.id}
+                    item:{id: action.id, mark: action.mark}
                 }
             );
             handleData(dataAction);

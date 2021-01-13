@@ -82,6 +82,32 @@ function localStorageDataManagement(actionType, item) {
 
         }
         break;
+
+        case"UPDATE":{
+            console.log("data Update")
+            let data;
+            localStorage.getItem(itemName) ? data = JSON.parse( localStorage.getItem(itemName)) : data = [];
+            console.log("localstorage before update", data);
+
+            let itemToUpdate = data.findIndex((el)=>{
+                return  item.id === el.id
+            });
+            console.log("index ? " + itemToUpdate, item)
+
+            if (itemToUpdate>-1){
+                console.log("index ? " + itemToUpdate)
+                // data.splice(itemToRemove, 1 );
+                data[itemToUpdate].mark = item.mark;
+                console.log("localstorage after update", data);
+
+                localStorage.setItem(itemName, JSON.stringify(data));
+
+            }
+            // data.push(action.item);
+            // localStorage.setItem('todos', JSON.stringify(data));
+
+        }
+            break;
         default:
             return null;
     }
