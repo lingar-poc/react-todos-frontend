@@ -20,9 +20,11 @@ export function removeData() {
 
 //todo - get, add, delete , update (mark)
 export function handleData(dataAction) {
+    console.log("data action = " , dataAction)
     const action = new DataAction(dataAction);
     //todo function for localstorage and liveServer separately
-   if (dataAction.localStorage){
+   if (action.localStorage){
+       console.log("here ? ")
         return localStorageDataManagement(action.actionType, action.item);
    }
 
@@ -41,12 +43,13 @@ function localStorageDataManagement(actionType, item) {
 
 
     switch (actionType) {
-        case (actionType === "GET"): {
+        case 'GET': {
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
             return Promise.resolve(data);
         }
-        case (actionType === "POST"): {
+        case 'POST': {
+            console.log("post ? ")
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
             item['id'] = uuidv4();
@@ -55,6 +58,8 @@ function localStorageDataManagement(actionType, item) {
             return Promise.resolve(item);
 
         }
+        default:
+            return Promise.reject();
     }
 
     // case (actionType.actionType === "SAVE"): {

@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from "uuid";
 import {DataAction, handleData} from "./dataServices";
 
-export function manageStore(todosStore, action) {
+export function  manageStore(todosStore, action) {
     switch (action.type) {
         case 'GET'://todo
 
@@ -9,9 +9,9 @@ export function manageStore(todosStore, action) {
                 ...todosStore,
                 selectedUser: action.id,
             }
-        case 'ADD': {
-            console.log("add...")
-            console.log("add2...", todosStore.users);
+        case 'POST': {
+            console.log("add...", action)
+            console.log("add2...", todosStore.todos);
 
             if (action.description === "") {
                 alert("Description cannot be empty");
@@ -25,16 +25,29 @@ export function manageStore(todosStore, action) {
                     item: item,
                 }
             );
-            handleData(dataAction).then(data=>{
-                todosStore.todos.push(item);
+            console.log("xzcx");
+
+            todosStore.todos.push(item);
+
+
+
+             handleData(dataAction).then(item => {
+                console.log("item = ?? ", todosStore.todos)
+                // todosStore.todos.push(item);
                 return {
-                    ...todosStore,
-                    // todos: usersStore.todos.push({name: action.name,  id: uuidv4(), generalResources: [{todos: null}]})
+                    ...todosStore
                 }
-            },(err)=> console.error("error occurred - ", err));
+            }, (err) => {
+                console.error("error occurred - ", err);
+                return {...todosStore};
+            });
+            console.log("getting here ???")
+            return {...todosStore};
 
 
         }
+            break;
+
         case 'REMOVE': {
             console.log("remove...", todosStore.users);
             let itemToRemove = todosStore.users.findIndex((item) => {

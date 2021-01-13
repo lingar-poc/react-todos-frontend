@@ -5,8 +5,8 @@ import {Todo} from "./features/todo/Todo";
 
 import './App.css';
 import {Todos} from './features/todos/Todos';
-import {Dashboard} from "./features/common/Dashboard";
 import {DataAction, handleData} from "./features/common/services/dataServices";
+import {manageStore} from "./features/common/services/todos-store";
 const mocks = [
     {    description: "xzczxvxzc",action: null},
     {    description: "dsgdfsdf",action: null},
@@ -35,7 +35,7 @@ function App() {
 
     }
 
-    const [todosStore, dispatchTodoAction] = useReducer(handleUser, initialTodos);
+    const [todosStore, dispatchTodoAction] = useReducer(manageStore, initialTodos);
 
 
 //const found = array1.find(element => element > 10);
