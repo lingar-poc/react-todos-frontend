@@ -1,75 +1,34 @@
 import React, {useState} from 'react';
 import {Todo} from "../todo/Todo";
-import PropTypes from 'prop-types';
 
-/**
- * TODO :
- * - convert to todos
- * - Make style simple radius border, with some padding.
- * - Make circle symbol which changed.
- * @param props
- * @returns {*}
- * @constructor
- */
 export function Todos(props) {
     const [description, setDescription] = useState("");
-    const addUser = () => {
-
-    }
-    const [val, setVal] = useState('default value');
-
-
-    // const list2 = props.store.users.map((item, idx) => {
-    //     return (
-    //         <div key={idx}
-    //              onClick={() => {
-    //                  props.userAction({
-    //                      type: 'select',
-    //                      id: item.id
-    //                  })
-    //              }}
-    //         >
-    //             Name = {item.name} <span className="remove" onClick={
-    //             (event) => {
-    //                 event.stopPropagation();
-    //                 props.userAction({
-    //                     type: 'REMOVE',
-    //                     id: item.id
-    //                 })
-    //             }
-    //         }>&#10060;</span></div>
-    //     )
-    // })
-
-    const list3 = props.todosStore.todos.map((item, idx) => {
+    const todosList = props.todosStore.todos.map((item, idx) => {
         return (
             <div key={idx}>
             <Todo description = {item.description} action = {props.todosAction} id={item.id} mark = {item.mark}/>
             </div>
-
-
-        )
+        );
     })
     return (
         <div>
-            <h2>Hi I am users</h2>
-            <p>Hooks POCss</p>
-            <p>{val}</p>
-            <button onClick={() => setVal('changed values')}>Change value</button>
-            <h2>List by store </h2>
-            {list3}
-
+            <h2>Write some todos!  </h2>
             <div>Create new TODO :</div>
             <input value={description} onChange={(event) => setDescription(event.target.value)}/>
             <button
-                onClick={() => {
+                onClick={(e) => {
+                    console.log("click")
                     props.todosAction({
                         type: 'POST',
                         description: description
-                    })
+                    });
+                    setDescription("");
+                    e.preventDefault();
                 }}
-            >Add new User
+            >Add new TODO
             </button>
+            <h3>Todos:</h3>
+            {todosList}
         </div>
     );
 }

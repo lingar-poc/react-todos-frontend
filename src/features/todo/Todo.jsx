@@ -1,14 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-/**
- * TODO :
- * - convert to todos
- * - Make style simple radius border, with some padding.
- * - Make circle symbol which changed.
- * @param props -id
- * @returns {*}
- * @constructor
- */
 export function Todo(props) {
     return (
         <div className={"todo " + (props.mark ? " done" : "not-done")}>

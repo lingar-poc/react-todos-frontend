@@ -1,49 +1,11 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  padding: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-.selectedUser{
-  background: orange;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-
-}
-
-
-
-/*Todo style*/
+/*custom todo's style*/
 .todo{
   width: 80%;
   padding: 10px;
@@ -68,7 +30,6 @@
 .mark{
   position: relative;
   display: inline-block;
-  border-left: 2px solid black;
   height: 100%;
   float: right;
   width: 15%;
