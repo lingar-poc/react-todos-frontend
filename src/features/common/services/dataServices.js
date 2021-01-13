@@ -37,7 +37,7 @@ export function handleData(dataAction) {
             console.log("index ? " + itemToRemove, action.id)
 
             if (itemToRemove>-1){
-                // itemToRemove === 0 ?  data.selectedUser = data.users[1].id: data.selectedUser = data.users[0].id;
+                // itemToRemove === 0 ?  data.selectedUser = data.todos[1].id: data.selectedUser = data.todos[0].id;
                 console.log("index ? " + itemToRemove)
                 data.splice(itemToRemove, 1 );
                 console.log("localstorage after remove", data);
@@ -46,7 +46,7 @@ export function handleData(dataAction) {
 
             }
             // data.push(action.item);
-            // localStorage.setItem('users', JSON.stringify(data));
+            // localStorage.setItem('todos', JSON.stringify(data));
 
         }
     }

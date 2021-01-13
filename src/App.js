@@ -4,11 +4,17 @@ import React, {useReducer} from 'react';
 import {Todo} from "./features/todo/Todo";
 
 import './App.css';
-import {Users} from './features/users/Users';
+import {Todos} from './features/todos/Todos';
 import {Dashboard} from "./features/common/Dashboard";
 import {DataAction, handleData} from "./features/common/services/dataServices";
+const mocks = [
+    {    description: "xzczxvxzc",action: null},
+    {    description: "dsgdfsdf",action: null},
+    {    description: "ererre",action: null}
 
 
+
+]
 function App() {
     //initializing data:
     let users = [];
@@ -28,7 +34,16 @@ function App() {
         selectedUser: users[0].id
 
     }
+
+    const initialTodos = {
+        todos: mocks,
+        selectedUser: users[0].id
+
+    }
+
     const [userStore, dispatchUserAction] = useReducer(handleUser, initialUsers);
+    const [todosStore, dispatchTodoAction] = useReducer(handleUser, initialTodos);
+
 
 //const found = array1.find(element => element > 10);
     return (
@@ -37,7 +52,7 @@ function App() {
             <p>with the help of God</p>
             <Dashboard user={userStore.users.find(user => user.id === userStore.selectedUser)}/>
 
-            <Users data={users} store={userStore} userAction={dispatchUserAction}/>
+            <Todos data={users} todosStore={todosStore} todosAction={dispatchUserAction}/>
             <Todo description = "do something!"/>
 
         </div>
@@ -84,7 +99,7 @@ function handleUser(usersStore, action) {
 
             return {
                 ...usersStore,
-                // users: usersStore.users.push({name: action.name,  id: uuidv4(), generalResources: [{todos: null}]})
+                // todos: usersStore.todos.push({name: action.name,  id: uuidv4(), generalResources: [{todos: null}]})
             }
         }
         case 'REMOVE': {
@@ -98,15 +113,15 @@ function handleUser(usersStore, action) {
             let newArr = [];
             if (itemToRemove > -1) {
                 // usersStore.selectedUse = "5a8eb49b-d36b-457d-9b18-b757bbd99053";
-                // usersStore.users = usersStore.users.splice(itemToRemove, 1 );
+                // usersStore.todos = usersStore.todos.splice(itemToRemove, 1 );
                 usersStore.users.splice(itemToRemove, 1);
 
 
-                console.log("users ? ", usersStore.users, usersStore.users.find(user => user.id === usersStore.users[1].id));
+                console.log("todos ? ", usersStore.users, usersStore.users.find(user => user.id === usersStore.users[1].id));
                 console.log(usersStore.users);
                 itemToRemove === 0 ? usersStore.selectedUser = usersStore.users[1].id : usersStore.selectedUser = usersStore.users[0].id;
-                // newArr = usersStore.users.splice(itemToRemove, 1 );
-                // usersStore.users = usersStore.users.splice(itemToRemove, 1 );
+                // newArr = usersStore.todos.splice(itemToRemove, 1 );
+                // usersStore.todos = usersStore.todos.splice(itemToRemove, 1 );
 
             }
 

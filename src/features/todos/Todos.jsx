@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Todo} from "../todo/Todo";
 import PropTypes from 'prop-types';
 
 /**
@@ -10,36 +11,43 @@ import PropTypes from 'prop-types';
  * @returns {*}
  * @constructor
  */
-export function Users(props) {
+export function Todos(props) {
     const [newUserName, setUserName] = useState("");
     const addUser = () => {
 
     }
     const [val, setVal] = useState('default value');
-    const list = props.data.map((item, idx) => {
-        return <div key={idx}>Name = {item.name}</div>
-    });
 
-    const list2 = props.store.users.map((item, idx) => {
+
+    // const list2 = props.store.users.map((item, idx) => {
+    //     return (
+    //         <div key={idx}
+    //              onClick={() => {
+    //                  props.userAction({
+    //                      type: 'select',
+    //                      id: item.id
+    //                  })
+    //              }}
+    //         >
+    //             Name = {item.name} <span className="remove" onClick={
+    //             (event) => {
+    //                 event.stopPropagation();
+    //                 props.userAction({
+    //                     type: 'REMOVE',
+    //                     id: item.id
+    //                 })
+    //             }
+    //         }>&#10060;</span></div>
+    //     )
+    // })
+
+    const list3 = props.todosStore.todos.map((item, idx) => {
         return (
-            <div key={idx}
-                 className={props.store.selectedUser === item.id ? 'selectedUser' : ''}
-                 onClick={() => {
-                     props.userAction({
-                         type: 'select',
-                         id: item.id
-                     })
-                 }}
-            >
-                Name = {item.name} <span className="remove" onClick={
-                (event) => {
-                    event.stopPropagation();
-                    props.userAction({
-                        type: 'REMOVE',
-                        id: item.id
-                    })
-                }
-            }>&#10060;</span></div>
+            <div key={idx}>
+            <Todo description = {item.description} action = {props.todosAction}/>
+            </div>
+
+
         )
     })
     return (
@@ -48,9 +56,8 @@ export function Users(props) {
             <p>Hooks POCss</p>
             <p>{val}</p>
             <button onClick={() => setVal('changed values')}>Change value</button>
-            {list}
             <h2>List by store </h2>
-            {list2}
+            {list3}
 
             <div>Create new user :</div>
             <input value={newUserName} onChange={(event) => setUserName(event.target.value)}/>

@@ -50,7 +50,7 @@
   height: 40px;
   border: solid 2px black ;
   border-radius: 5px ;
-  margin-left: 10%;
+  margin: 20px 10%;
 }
 
 .done{
@@ -73,6 +73,8 @@
   float: right;
   width: 15%;
   cursor: pointer;
+  border: solid 2px black ;
+  border-radius: 5px ;
 
 }
 .mark .icon{
