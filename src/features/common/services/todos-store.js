@@ -1,7 +1,8 @@
 import {v4 as uuidv4} from "uuid";
 import {DataAction, handleData} from "./dataServices";
+
 //TODO - do it with promises support
-export  async function  manageStore(todosStore, action) {
+export function manageStore(todosStore, action) {
     switch (action.type) {
         case 'GET'://todo
 
@@ -25,28 +26,10 @@ export  async function  manageStore(todosStore, action) {
                     item: item,
                 }
             );
-            console.log("xzcx");
-
+            handleData(dataAction);
             todosStore.todos.push(item);
-
-
-            let promise = await handleData(dataAction);
-             handleData(dataAction).then(item => {
-                console.log("item = ?? ", todosStore.todos)
-                // todosStore.todos.push(item);
-                return {
-                    ...todosStore
-                }
-            }, (err) => {
-                console.error("error occurred - ", err);
-                return {...todosStore};
-            });
-            console.log("getting here ???", todosStore)
             return {...todosStore};
-
-
         }
-            break;
 
         case 'REMOVE': {
             console.log("remove...", todosStore.users);
