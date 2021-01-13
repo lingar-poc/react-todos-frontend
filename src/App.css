@@ -62,7 +62,7 @@
 }
 .description{
   position: relative;
-  width: 80%;
+  width: 50%;
   display: inline-block;
 }
 .mark{
@@ -70,5 +70,14 @@
   display: inline-block;
   border-left: 2px solid black;
   height: 100%;
+  float: right;
+  width: 15%;
+  cursor: pointer;
 
+}
+.mark .icon{
+  font-size: 20px;
+}
+.delete{
+  background: orange;
 }

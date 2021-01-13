@@ -14,9 +14,22 @@ export function Todo(props) {
 
 
     return (
-        <div className={"todo " +(mark ? " done" : "not-done")}>
-            <div className="description">TODO : {props.description}</div>
-            <div className= "mark">X</div>
+        <div className={"todo " + (mark ? " done" : "not-done")}>
+            <div className="description">{mark? "DONE!" : "TODO..."} : {props.description}</div>
+            <div className="mark delete"  onClick={() => alert("TODO - delete action")}>
+                <span className="icon">Delete  &#9747;
+
+                </span>
+
+            </div>
+            <div className="mark"  onClick={() => tick(!mark)}>
+                <span className="icon"> {mark ? <span>status = &#9745; Undo</span>:<span>status =  &#9746; Do </span>}
+
+                </span>
+
+            </div>
+
+
         </div>
     );
 }
