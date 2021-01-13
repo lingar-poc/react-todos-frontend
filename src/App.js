@@ -17,43 +17,34 @@ const mocks = [
 ]
 function App() {
     //initializing data:
-    let users = [];
-    if (!localStorage.getItem('users')) {
+    let todos = [];
+    if (!localStorage.getItem('todos')) {
 
-        users.push({name: "Avaraham", id: uuidv4(), generalResources: [{todos: null}]});
-        users.push({name: "Izhak", id: uuidv4(), generalResources: [{todos: null}]});
-        localStorage.setItem('users', JSON.stringify(users));
+        todos.push( {    description: "xzczxvxzc",action: null});
+        todos.push({    description: "dsgdfsdf",action: null});
+        localStorage.setItem('todos', JSON.stringify(todos));
 
     } else {
-        users = JSON.parse(localStorage.getItem('users'));
+        todos = JSON.parse(localStorage.getItem('todos'));
     }
 
-    //creating store:
-    const initialUsers = {
-        users: users,
-        selectedUser: users[0].id
 
-    }
 
     const initialTodos = {
-        todos: mocks,
-        selectedUser: users[0].id
+        todos: todos,
 
     }
 
-    const [userStore, dispatchUserAction] = useReducer(handleUser, initialUsers);
     const [todosStore, dispatchTodoAction] = useReducer(handleUser, initialTodos);
 
 
 //const found = array1.find(element => element > 10);
     return (
         <div className="">
-            {userStore.selectedUser}
             <p>with the help of God</p>
-            <Dashboard user={userStore.users.find(user => user.id === userStore.selectedUser)}/>
 
-            <Todos data={users} todosStore={todosStore} todosAction={dispatchUserAction}/>
-            <Todo description = "do something!"/>
+            <Todos todosStore={todosStore} todosAction={dispatchTodoAction}/>
+            {/*<Todo description = "do something!"/>*/}
 
         </div>
     );
