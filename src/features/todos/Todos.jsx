@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
  * @constructor
  */
 export function Todos(props) {
-    const [newUserName, setUserName] = useState("");
+    const [description, setUserName] = useState("");
     const addUser = () => {
 
     }
@@ -59,13 +59,13 @@ export function Todos(props) {
             <h2>List by store </h2>
             {list3}
 
-            <div>Create new user :</div>
-            <input value={newUserName} onChange={(event) => setUserName(event.target.value)}/>
+            <div>Create new TODO :</div>
+            <input value={description} onChange={(event) => setUserName(event.target.value)}/>
             <button
                 onClick={() => {
-                    props.userAction({
-                        type: 'ADD',
-                        name: newUserName
+                    props.todosAction({
+                        type: 'POST',
+                        description: description
                     })
                 }}
             >Add new User

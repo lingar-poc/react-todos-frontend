@@ -1,3 +1,5 @@
+import {v4 as uuidv4} from "uuid";
+
 const itemName = "todos";
 
 function getData(dataAction) {
@@ -20,6 +22,10 @@ export function removeData() {
 export function handleData(dataAction) {
     const action = new DataAction(dataAction);
     //todo function for localstorage and liveServer separately
+   if (dataAction.localStorage){
+        return localStorageDataManagement(action.actionType, action.item);
+   }
+
 }
 
 export function DataAction(action) {
@@ -41,10 +47,13 @@ function localStorageDataManagement(actionType, item) {
             return Promise.resolve(data);
         }
         case (actionType === "POST"): {
-            let data;
-                localStorage.getItem(itemName) ? data = JSON.parse( localStorage.getItem(itemName)) : data = [];
-                data.push(item);
-                localStorage.setItem(itemName, JSON.stringify(data));
+            let data = [];
+            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
+            item['id'] = uuidv4();
+            data.push(item);
+            localStorage.setItem(itemName, JSON.stringify(data));
+            return Promise.resolve(item);
+
         }
     }
 
