@@ -12,7 +12,7 @@ export function handleData(dataAction) {
 }
 
 
-function localStorageDataManagement(actionType, item) {
+async function localStorageDataManagement(actionType, item) {
 
     switch (actionType) {
         case 'GET': {
@@ -68,15 +68,21 @@ function localStorageDataManagement(actionType, item) {
 }
 
 //TODO
-function localStorageDataManagementWithPromises(actionType, item) {
+export function localStorageDataManagementWithPromises(actionType, item) {
 
 
     switch (actionType) {
         case 'GET': {
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            return Promise.resolve(data);
+            return new Promise((res)=>{
+                setTimeout(()=>{
+                    return res(data);
+                }, 3000);
+            });
+
         }
+        break;
         case 'POST': {
             console.log("post ? ")
             let data = [];
