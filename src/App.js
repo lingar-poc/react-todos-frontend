@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useLayoutEffect, useEffect} from 'react';
 import './App.css';
 import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
@@ -14,25 +14,38 @@ const mocks = [
 
 function App() {
     //initializing data:
-    localStorageDataManagementWithPromises('GET', null).then(data=>{
-        console.log("happen ? ")
-        console.log("after promise = " , data)
-    }).catch(()=>{
-        console.log("errror ?")
-    })
-    let todos = [];
-    if (!localStorage.getItem('todos')) {
-        localStorage.setItem('todos', JSON.stringify(mocks));
-    } else {
-        todos = JSON.parse(localStorage.getItem('todos'));
-    }
+    let todos = null;
+
+
+    // if (!localStorage.getItem('todos')) {
+    //     localStorage.setItem('todos', JSON.stringify(mocks));
+    // } else {
+    //     todos = JSON.parse(localStorage.getItem('todos'));
+    // }
 
     const initialTodos = {
         todos: todos,
 
     }
-
     const [todosStore, dispatchTodoAction] = useReducer(manageStore, initialTodos);
+
+    useEffect(()=>{
+        localStorageDataManagementWithPromises('GET', null).then(data=>{
+            console.log("happen ? ")
+            console.log("after promise = " , data);
+            // todosStore.todos = data;
+            dispatchTodoAction({
+                type: 'GET',
+                todos: data
+                // todos: description
+            });
+
+
+        }).catch(()=>{
+            console.log("errror ?")
+        });
+    },[]);
+
 
     return (
         <div className="">

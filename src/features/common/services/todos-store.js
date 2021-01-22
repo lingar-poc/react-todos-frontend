@@ -2,12 +2,17 @@ import {DataAction, handleData} from "./data-services";
 
 //TODO - do it with promises support
 export function manageStore(todosStore, action) {
+    console.log("manage store")
     switch (action.type) {
-        case 'GET'://todo
+        case 'GET':{
+            console.log(todosStore)
             return {
                 ...todosStore,
                 selectedUser: action.id,
+                todos: action.todos
             }
+        }//todo
+
         case 'POST': {
             console.log("description = " , action.description)
             if (action.description === "") {
