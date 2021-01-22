@@ -4,6 +4,17 @@ import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
 import {localStorageDataManagementWithPromises} from "./features/common/services/data-services";
 
+/**
+ * U here
+ * Next time - TODO :
+ - Finish the delete action.
+ - Clean the code. Leave some info logs.
+ - Add notices at the UI.
+ - Push the branch.
+ - Make PR. Share with David .
+
+ * @type {({description: string, action: null}|{description: string, action: null}|{description: string, action: null})[]}
+ */
 const mocks = [
     {description: "Write some code ", action: null},
     {description: "Drink some Coke", action: null},
