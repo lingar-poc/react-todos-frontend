@@ -1,46 +1,59 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
-body{
-  padding: 15px;
+
+body {
+    padding: 15px;
 }
 
 /*custom todo's style*/
-.todo{
-  width: 80%;
-  padding: 10px;
-  height: 40px;
-  border: solid 2px black ;
-  border-radius: 5px ;
-  margin: 20px 10%;
+.todo {
+    width: 80%;
+    padding: 10px;
+    height: 40px;
+    border: solid 2px black;
+    border-radius: 5px;
+    margin: 20px 10%;
 }
 
-.done{
-  background: aquamarine;
+.done {
+    background: aquamarine;
 
 }
-.not-done{
-  background: lightcoral;
+
+.not-done {
+    background: lightcoral;
 }
-.description{
-  position: relative;
-  width: 50%;
-  display: inline-block;
+
+.description {
+    position: relative;
+    width: 50%;
+    display: inline-block;
 }
-.mark{
-  position: relative;
-  display: inline-block;
-  height: 100%;
-  float: right;
-  width: 15%;
-  cursor: pointer;
-  border: solid 2px black ;
-  border-radius: 5px ;
+
+.mark {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    float: right;
+    width: 15%;
+    cursor: pointer;
+    border: solid 2px black;
+    border-radius: 5px;
 
 }
-.mark .icon{
-  font-size: 20px;
+
+.mark .icon {
+    font-size: 20px;
 }
-.delete{
-  background: orange;
+
+.delete {
+    background: orange;
+}
+
+.pop-msg {
+    font-size: 100px;
+    position: absolute;
+    left: 30%;
+    top: 30%;
 }

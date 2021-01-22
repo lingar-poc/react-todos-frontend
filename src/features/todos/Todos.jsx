@@ -4,16 +4,18 @@ import {localStorageDataManagementWithPromises} from "../common/services/data-se
 
 export function Todos(props) {
     const [description, setDescription] = useState("");
-    let todosList = "loading";
-    const  [showError, setShowError] = useState(false);
+    let todosList =  <p className= "pop-msg" >Loading</p>;
+
+    const [showError, setShowError] = useState(false);
+    const [working, setWorking] = useState(false);
+
     const [errMsg, setErrMsg] = useState("General error");
 
     if (props.todosStore.todos) {
-        if(props.todosStore.todos.length < 1){
-            todosList =  "No items";
+        if (props.todosStore.todos.length < 1) {
+            todosList = <p className= "pop-msg" style ={{top: "50%"}}>No items</p>;
 
-        }
-        else {
+        } else {
             todosList = props.todosStore.todos.map((item, idx) => {
                 return (
                     <div key={idx}>
@@ -32,41 +34,43 @@ export function Todos(props) {
             <div>Create new TODO :</div>
             <input value={description} onChange={(event) => setDescription(event.target.value)}/>
             <button
-            onClick={(e) => {
-                console.log("click")
-                props.todosAction({
-                    type: 'POST',
-                    description: description
-                });
-                setDescription("");
-                e.preventDefault();
-            }}
-        >Add new TODO
-        </button>
+                onClick={(e) => {
+                    console.log("click")
+                    props.todosAction({
+                        type: 'POST',
+                        description: description
+                    });
+                    setDescription("");
+                    e.preventDefault();
+                }}
+            >Add new TODO
+            </button>
 
             <button
                 onClick={(e) => {
                     console.log("click");
+                    setWorking(true);
                     localStorageDataManagementWithPromises('POST', {description: description, mark: false})
-                        .then(item =>{
-                            props.todosAction({
-                                type: 'POST',
-                                description: description,
-                                newItem: item
-                            });
+                        .then(item => {
+                                props.todosAction({
+                                    type: 'POST',
+                                    description: description,
+                                    newItem: item
+                                });
                                 setDescription("");
                             },
-                            (err)=>{
+                            (err) => {
                                 console.log("error!")
-                               setErrMsg( err);
-                               setShowError(true);
-                               setTimeout(()=>{
-                                   setShowError(false);
+                                setErrMsg(err);
+                                setShowError(true);
+                                setTimeout(() => {
+                                    setShowError(false);
 
-                               },3000);
+                                }, 3000);
 
-                            }
-                        );
+                            },
+
+                        ).then(()=>setWorking(false));
 
 
                     // e.preventDefault();
@@ -75,8 +79,8 @@ export function Todos(props) {
             </button>
             <h3>Todos:</h3>
             {todosList}
-            {showError? <p style = {{color:'red', fontSize: '200px'
-            ,position: 'absolute', left:'30%', top: '30%'}}>{errMsg} </p> : null}
+            {showError ? <p className ="pop-msg" style={{color: 'red'}}>{errMsg} </p> : null}
+            {working ? <p className ="pop-msg" style={{color: 'dodgerblue'}}>Working on that! </p> : null}
         </div>
     );
 }
