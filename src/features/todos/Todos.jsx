@@ -80,7 +80,7 @@ export function Todos(props) {
             <h3>Todos:</h3>
             {todosList}
             {showError ? <p className ="pop-msg" style={{color: 'red'}}>{errMsg} </p> : null}
-            {working ? <p className ="pop-msg" style={{color: 'dodgerblue'}}>Working on that! </p> : null}
+            {working || props.todosStore.loading? <p className ="pop-msg" style={{color: 'dodgerblue'}}>Working on that! </p> : null}
         </div>
     );
 }

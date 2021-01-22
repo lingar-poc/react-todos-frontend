@@ -4,6 +4,12 @@ import {DataAction, handleData} from "./data-services";
 export function manageStore(todosStore, action) {
     console.log("manage store")
     switch (action.type) {
+        case 'LOADING':{
+            return {
+                ...todosStore,
+                loading: action.loading
+            }
+        }
         case 'GET':{
             console.log(todosStore)
             return {
@@ -54,23 +60,30 @@ export function manageStore(todosStore, action) {
             }
         }
         case 'UPDATE': {
+            // let itemToUpdate = todosStore.todos.findIndex((item) => {
+            //     return item.id === action.id
+            // });
+            //
+            // if (itemToUpdate > -1) {
+            //     todosStore.todos[itemToUpdate].mark = action.mark;
+            // }
+            //
+            // console.log("todosStore.selectedUser =", todosStore.todos[itemToUpdate]);
+            // let dataAction = new DataAction(
+            //     {
+            //         localStorage: true,
+            //         actionType: 'UPDATE',
+            //         item: {id: action.id, mark: action.mark}
+            //     }
+            // );
+            // handleData(dataAction);
+            //finding the array index by the id
             let itemToUpdate = todosStore.todos.findIndex((item) => {
-                return item.id === action.id
+                return item.id === action.item.id
             });
-
             if (itemToUpdate > -1) {
-                todosStore.todos[itemToUpdate].mark = action.mark;
+                todosStore.todos[itemToUpdate].mark = action.item.mark;
             }
-
-            console.log("todosStore.selectedUser =", todosStore.todos[itemToUpdate]);
-            let dataAction = new DataAction(
-                {
-                    localStorage: true,
-                    actionType: 'UPDATE',
-                    item: {id: action.id, mark: action.mark}
-                }
-            );
-            handleData(dataAction);
             return {
                 ...todosStore,
 

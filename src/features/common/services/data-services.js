@@ -76,20 +76,20 @@ export function localStorageDataManagementWithPromises(actionType, item) {
         case 'GET': {
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            return new Promise((resolve)=>{
-                setTimeout(()=>{
+            return new Promise((resolve) => {
+                setTimeout(() => {
                     return resolve(data);
                 }, delayDemo * 1000);
             });
 
         }
-        break;
+            break;
         case 'POST': {
             //error demo:
             console.log("adding item ", item)
-            if(item.description === 'error'){
-                return new Promise((resolve, reject)=>{
-                    setTimeout(()=>{
+            if (item.description === 'error') {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
                         return reject("error demo");
                     }, delayDemo * 1000);
                 });
@@ -99,12 +99,32 @@ export function localStorageDataManagementWithPromises(actionType, item) {
             item['id'] = uuidv4();
             data.push(item);
             localStorage.setItem(itemName, JSON.stringify(data));
-            return new Promise((resolve)=>{
-                setTimeout(()=>{
+            return new Promise((resolve) => {
+                setTimeout(() => {
                     return resolve(item);
                 }, delayDemo * 1000);
             });
         }
+        case"UPDATE": {
+            //                    item: {id: props.id, mark: !props.mark}
+            let data;
+            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
+            //getting the array index to update
+            let itemToUpdate = data.findIndex((el) => {
+                return item.id === el.id
+            });
+
+            if (itemToUpdate > -1) {
+                data[itemToUpdate].mark = item.mark;
+                localStorage.setItem(itemName, JSON.stringify(data));
+            }
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    return resolve(item);
+                }, delayDemo * 1000);
+            });
+        }
+
         default:
             return Promise.reject();
     }

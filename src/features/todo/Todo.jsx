@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {localStorageDataManagementWithPromises} from "../common/services/data-services";
 
 export function Todo(props) {
+    // const [mark, setMark ] = useState(props.mark);
     return (
         <div className={"todo " + (props.mark ? " done" : "not-done")}>
             <div className="description">{props.mark ? "DONE!" : "TODO..."} : {props.description}</div>
@@ -12,10 +14,23 @@ export function Todo(props) {
             </div>
             <div className="mark" onClick={() =>{
                 props.action({
-                    type: "UPDATE",
-                    id: props.id,
-                    mark: !props.mark
+                    type: "LOADING",
+                    loading: true
+                });
+                localStorageDataManagementWithPromises("UPDATE", {id: props.id, mark: !props.mark})
+                    .then((item)=>{
+                        props.action({
+                            type: "UPDATE",
+
+                            item: item
+                        })
+                    }).then(()=>{
+                    props.action({
+                        type: "LOADING",
+                        loading: false
+                    });
                 })
+
             }}>
                 <span className="icon"> {props.mark ? <span>status = &#9745; Undo</span> : <span>status =  &#9746; Do </span>}
                 </span>
