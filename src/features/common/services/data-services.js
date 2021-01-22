@@ -69,29 +69,41 @@ async function localStorageDataManagement(actionType, item) {
 
 //TODO
 export function localStorageDataManagementWithPromises(actionType, item) {
+    const delayDemo = 3;
 
 
     switch (actionType) {
         case 'GET': {
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            return new Promise((res)=>{
+            return new Promise((resolve)=>{
                 setTimeout(()=>{
-                    return res(data);
-                }, 3000);
+                    return resolve(data);
+                }, delayDemo * 1000);
             });
 
         }
         break;
         case 'POST': {
-            console.log("post ? ")
+            //error demo:
+            console.log("adding item ", item)
+            if(item.description === 'error'){
+                return new Promise((resolve, reject)=>{
+                    setTimeout(()=>{
+                        return reject("error demo");
+                    }, delayDemo * 1000);
+                });
+            }
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
             item['id'] = uuidv4();
             data.push(item);
             localStorage.setItem(itemName, JSON.stringify(data));
-            return Promise.resolve(item);
-
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    return resolve(item);
+                }, delayDemo * 1000);
+            });
         }
         default:
             return Promise.reject();

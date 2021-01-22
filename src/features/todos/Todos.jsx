@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {Todo} from "../todo/Todo";
+import {localStorageDataManagementWithPromises} from "../common/services/data-services";
 
 export function Todos(props) {
     const [description, setDescription] = useState("");
     let todosList = "loading";
+    const  [showError, setShowError] = useState(false);
+    const [errMsg, setErrMsg] = useState("General error");
 
     if (props.todosStore.todos) {
         if(props.todosStore.todos.length < 1){
@@ -29,19 +32,51 @@ export function Todos(props) {
             <div>Create new TODO :</div>
             <input value={description} onChange={(event) => setDescription(event.target.value)}/>
             <button
+            onClick={(e) => {
+                console.log("click")
+                props.todosAction({
+                    type: 'POST',
+                    description: description
+                });
+                setDescription("");
+                e.preventDefault();
+            }}
+        >Add new TODO
+        </button>
+
+            <button
                 onClick={(e) => {
-                    console.log("click")
-                    props.todosAction({
-                        type: 'POST',
-                        description: description
-                    });
-                    setDescription("");
-                    e.preventDefault();
+                    console.log("click");
+                    localStorageDataManagementWithPromises('POST', {description: description, mark: false})
+                        .then(item =>{
+                            props.todosAction({
+                                type: 'POST',
+                                description: description,
+                                newItem: item
+                            });
+                                setDescription("");
+                            },
+                            (err)=>{
+                                console.log("error!")
+                               setErrMsg( err);
+                               setShowError(true);
+                               setTimeout(()=>{
+                                   setShowError(false);
+
+                               },3000);
+
+                            }
+                        );
+
+
+                    // e.preventDefault();
                 }}
-            >Add new TODO
+            >Add new TODO with promise
             </button>
             <h3>Todos:</h3>
             {todosList}
+            {showError? <p style = {{color:'red', fontSize: '200px'
+            ,position: 'absolute', left:'30%', top: '30%'}}>{errMsg} </p> : null}
         </div>
     );
 }

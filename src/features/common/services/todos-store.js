@@ -14,21 +14,22 @@ export function manageStore(todosStore, action) {
         }//todo
 
         case 'POST': {
-            console.log("description = " , action.description)
-            if (action.description === "") {
-                alert("Description cannot be empty");
-                return {...todosStore};
-            }
-            const item = {description: action.description, mark: false};
-            let dataAction = new DataAction(
-                {
-                    localStorage: true,
-                    actionType: action.type,
-                    item: item,
-                }
-            );
-            handleData(dataAction);
-            todosStore.todos.push(item);
+            // console.log("description = " , action.description)
+            // if (action.description === "") {
+            //     alert("Description cannot be empty");
+            //     return {...todosStore};
+            // }
+            // const item = {description: action.description, mark: false};
+            // let dataAction = new DataAction(
+            //     {
+            //         localStorage: true,
+            //         actionType: action.type,
+            //         item: item,
+            //     }
+            // );
+            // handleData(dataAction);
+            console.log("trying with promises ")
+            todosStore.todos.push(action.newItem);
             return {...todosStore};
         }
 
