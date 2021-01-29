@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {localStorageDataManagementWithPromises} from "../common/services/data-services";
 
 export function Todo(props) {
-    // const [mark, setMark ] = useState(props.mark);
     return (
         <div className={"todo " + (props.mark ? " done" : "not-done")}>
             <div className="description"><b>{props.mark ? "DONE!" : "TODO:"}</b> {props.description}
