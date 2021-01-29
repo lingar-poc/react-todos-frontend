@@ -1,4 +1,4 @@
-import React, {useReducer, useLayoutEffect, useEffect} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import './App.css';
 import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
