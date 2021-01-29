@@ -31,7 +31,7 @@ body {
     display: inline-block;
 }
 
-.mark {
+.action-area {
     position: relative;
     display: inline-block;
     height: 100%;
@@ -40,10 +40,18 @@ body {
     cursor: pointer;
     border: solid 2px black;
     border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
 
 }
 
-.mark .icon {
+.action-area:hover{
+    border: yellow dashed 4px;
+    background: cornsilk;
+
+}
+
+.action-area .icon {
     font-size: 20px;
 }
 

@@ -5,8 +5,12 @@ export function Todo(props) {
     // const [mark, setMark ] = useState(props.mark);
     return (
         <div className={"todo " + (props.mark ? " done" : "not-done")}>
-            <div className="description">{props.mark ? "DONE!" : "TODO..."} : {props.description}</div>
-            <div className="mark delete" onClick={() => {
+            <div className="description"><b>{props.mark ? "DONE!" : "TODO:"}</b> {props.description}
+            <br/>
+                <span className="icon"> {props.mark ? <span>status = &#9745; </span> :
+                    <span>status =  &#9746;  </span>}
+                </span></div>
+            <div className="action-area delete" onClick={() => {
                 props.action({
                     type: "LOADING",
                     loading: true
@@ -27,7 +31,7 @@ export function Todo(props) {
             }>
                 <span className="icon">Delete  &#9747;</span>
             </div>
-            <div className="mark" onClick={() => {
+            <div className="action-area" onClick={() => {
                 props.action({
                     type: "LOADING",
                     loading: true
@@ -47,8 +51,8 @@ export function Todo(props) {
                 })
 
             }}>
-                <span className="icon"> {props.mark ? <span>status = &#9745; Undo</span> :
-                    <span>status =  &#9746; Do </span>}
+                <span className="icon"> {props.mark ? <span> Undo</span> :
+                    <span>Do </span>}
                 </span>
             </div>
         </div>
