@@ -7,7 +7,6 @@ const itemName = "todos";
  */
 const delayDemo = 1;
 
-
 export function localStorageDataManagementWithPromises(actionType, item) {
     console.log("localStorageDataManagementWithPromises");
 
