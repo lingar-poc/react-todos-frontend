@@ -40,21 +40,22 @@ export function manageStore(todosStore, action) {
         }
 
         case 'DELETE': {
+            console.log("delete from store ")
             let itemToRemove = todosStore.todos.findIndex((item) => {
-                return item.id === action.id
+                return item.id === action.item.id
             });
             if (itemToRemove > -1) {
                 todosStore.todos.splice(itemToRemove, 1);
             }
 
-            let dataAction = new DataAction(
-                {
-                    localStorage: true,
-                    actionType: 'DELETE',
-                    item: {id: action.id}
-                }
-            );
-            handleData(dataAction);
+            // let dataAction = new DataAction(
+            //     {
+            //         localStorage: true,
+            //         actionType: 'DELETE',
+            //         item: {id: action.id}
+            //     }
+            // );
+            // handleData(dataAction);
             return {
                 ...todosStore
             }

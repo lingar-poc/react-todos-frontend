@@ -70,6 +70,7 @@ async function localStorageDataManagement(actionType, item) {
 //TODO
 export function localStorageDataManagementWithPromises(actionType, item) {
     const delayDemo = 3;
+    console.log("localStorageDataManagementWithPromises");
 
 
     switch (actionType) {
@@ -124,6 +125,28 @@ export function localStorageDataManagementWithPromises(actionType, item) {
                 }, delayDemo * 1000);
             });
         }
+
+        case "DELETE": {
+            console.log("delete from localstorage... ")
+            let data;
+            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
+            let itemToRemove = data.findIndex((el) => {
+                return item.id === el.id
+            });
+
+            if (itemToRemove > -1) {
+                data.splice(itemToRemove, 1);
+                localStorage.setItem(itemName, JSON.stringify(data));
+
+            }
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    return resolve(item);
+                }, delayDemo * 1000);
+            });
+
+        }
+
 
         default:
             return Promise.reject();

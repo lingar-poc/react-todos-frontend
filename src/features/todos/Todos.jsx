@@ -50,6 +50,12 @@ export function Todos(props) {
                 onClick={(e) => {
                     console.log("click");
                     setWorking(true);
+                    if (description === "") {
+                            alert("Description cannot be empty");
+                        setWorking(false);
+
+                        return;
+                        }
                     localStorageDataManagementWithPromises('POST', {description: description, mark: false})
                         .then(item => {
                                 props.todosAction({
