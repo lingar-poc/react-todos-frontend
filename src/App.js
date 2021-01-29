@@ -12,48 +12,29 @@ import {localStorageDataManagementWithPromises} from "./features/common/services
  - Add notices at the UI.
  - Push the branch.
  - Make PR. Share with David .
-
- * @type {({description: string, action: null}|{description: string, action: null}|{description: string, action: null})[]}
  */
-const mocks = [
-    {description: "Write some code ", action: null},
-    {description: "Drink some Coke", action: null},
-    {description: "Go to sleep", action: null}
-
-
-]
 
 function App() {
     //initializing data:
     let todos = null;
 
-
-    // if (!localStorage.getItem('todos')) {
-    //     localStorage.setItem('todos', JSON.stringify(mocks));
-    // } else {
-    //     todos = JSON.parse(localStorage.getItem('todos'));
-    // }
-
     const initialTodos = {
         todos: todos,
 
     }
+    //Instantiate the todos-store, with data, and with dispatching action (function that will happen in each dispatching of the action and will be manipulate the data
     const [todosStore, dispatchTodoAction] = useReducer(manageStore, initialTodos);
 
     useEffect(()=>{
+        console.log("getting the data from the localstorage...")
         localStorageDataManagementWithPromises('GET', null).then(data=>{
-            console.log("happen ? ")
-            console.log("after promise = " , data);
-            // todosStore.todos = data;
+            console.log("Data =  " , data);
             dispatchTodoAction({
                 type: 'GET',
                 todos: data
-                // todos: description
             });
-
-
         }).catch(()=>{
-            console.log("errror ?")
+            console.log("Error with getting the data");
         });
     },[]);
 
@@ -61,6 +42,8 @@ function App() {
     return (
         <div className="">
             <p>with the help of God</p>
+            <p>Done by Izhar Mashkif (lingar) , yimprogramming@gmail.com. I am available for new projects :) !</p>
+            {/*The todos component with todo's store to manage the data from one place*/}
             <Todos todosStore={todosStore} todosAction={dispatchTodoAction}/>
         </div>
     );

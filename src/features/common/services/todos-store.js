@@ -1,96 +1,55 @@
-import {DataAction, handleData} from "./data-services";
-
-//TODO - do it with promises support
+/**Funtion for manage the store
+ *
+ * @param todosStore the exist store with the current state
+ * @param action - action that contain the passed state changes
+ */
 export function manageStore(todosStore, action) {
-    console.log("manage store")
+    console.log("manage store");
     switch (action.type) {
-        case 'LOADING':{
+        case 'LOADING': {
             return {
                 ...todosStore,
                 loading: action.loading
             }
         }
-        case 'GET':{
-            console.log(todosStore)
+        case 'GET': {
+            console.log("get the data and assign it to the store. data =  ", todosStore);
             return {
                 ...todosStore,
-                selectedUser: action.id,
                 todos: action.todos
             }
-        }//todo
-
+        }
         case 'POST': {
-            // console.log("description = " , action.description)
-            // if (action.description === "") {
-            //     alert("Description cannot be empty");
-            //     return {...todosStore};
-            // }
-            // const item = {description: action.description, mark: false};
-            // let dataAction = new DataAction(
-            //     {
-            //         localStorage: true,
-            //         actionType: action.type,
-            //         item: item,
-            //     }
-            // );
-            // handleData(dataAction);
-            console.log("trying with promises ")
+            console.log("Add new item to the store. item = ", action.newItem);
             todosStore.todos.push(action.newItem);
             return {...todosStore};
         }
-
         case 'DELETE': {
-            console.log("delete from store ")
+            console.log("delete item from store. item = ", action.item);
+            //getting the right index
             let itemToRemove = todosStore.todos.findIndex((item) => {
-                return item.id === action.item.id
+                return item.id === action.item.id;
             });
             if (itemToRemove > -1) {
                 todosStore.todos.splice(itemToRemove, 1);
             }
-
-            // let dataAction = new DataAction(
-            //     {
-            //         localStorage: true,
-            //         actionType: 'DELETE',
-            //         item: {id: action.id}
-            //     }
-            // );
-            // handleData(dataAction);
             return {
                 ...todosStore
             }
         }
+
         case 'UPDATE': {
-            // let itemToUpdate = todosStore.todos.findIndex((item) => {
-            //     return item.id === action.id
-            // });
-            //
-            // if (itemToUpdate > -1) {
-            //     todosStore.todos[itemToUpdate].mark = action.mark;
-            // }
-            //
-            // console.log("todosStore.selectedUser =", todosStore.todos[itemToUpdate]);
-            // let dataAction = new DataAction(
-            //     {
-            //         localStorage: true,
-            //         actionType: 'UPDATE',
-            //         item: {id: action.id, mark: action.mark}
-            //     }
-            // );
-            // handleData(dataAction);
-            //finding the array index by the id
+            console.log("change the item mark - item = ", action.item);
             let itemToUpdate = todosStore.todos.findIndex((item) => {
-                return item.id === action.item.id
+                return item.id === action.item.id;
             });
             if (itemToUpdate > -1) {
                 todosStore.todos[itemToUpdate].mark = action.item.mark;
             }
             return {
-                ...todosStore,
-
+                ...todosStore
             }
         }
-
         default:
             return todosStore;
     }
