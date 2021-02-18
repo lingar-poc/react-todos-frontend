@@ -5,7 +5,7 @@ const itemName = "todos";
  * Change this for change the second of the demo delay.
  * @type {number}
  */
-const delayDemo = 1;
+const delayDemo = 1;//todo - interface with java script
 
 export function localStorageDataManagementWithPromises(actionType, item) {
     console.log("localStorageDataManagementWithPromises");

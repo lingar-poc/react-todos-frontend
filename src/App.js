@@ -1,8 +1,11 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useState,useLayoutEffect} from 'react';
 import './App.css';
 import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
 import {localStorageDataManagementWithPromises} from "./features/common/services/data-services";
+import axios from "axios";
+
+export const BASE_URL = "http://localhost:8080/ws/";
 
 function App() {
     //initializing data:
@@ -14,7 +17,7 @@ function App() {
     }
     //Instantiate the todos-store, with data, and with dispatching action (function that will happen in each dispatching of the action and will be manipulate the data
     const [todosStore, dispatchTodoAction] = useReducer(manageStore, initialTodos);
-
+    const [serverConnection, setServerConnection ] = useState(false);
     useEffect(()=>{
         console.log("getting the data from the localstorage...")
         localStorageDataManagementWithPromises('GET', null).then(data=>{
@@ -28,11 +31,22 @@ function App() {
         });
     },[]);
 
+    useLayoutEffect(()=>{
+        if (serverConnection){
+            axios.get(BASE_URL+"/test-server").then(()=>console.log("server up")).catch(()=>{
+                console.error("server down");
+                setServerConnection(false);
+            });
+        }
+    })
 
     return (
         <div className="">
             <p>with the help of God</p>
             <p>Done by Izhar Mashkif (lingar) , yimprogramming@gmail.com. <b>I am available for new projects</b> :) !</p>
+            <input type= "checkbox"
+            onChange={()=>setServerConnection(!serverConnection)}
+            checked={serverConnection}/>
             <ul>
                 <li>Done with useReducer from react-hooks, a tool for easily manage stores. </li>
                 <li>It's demonstrate working with promises, and then update the store.
