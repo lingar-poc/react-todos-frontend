@@ -1,8 +1,12 @@
-import React, {useEffect, useReducer, useState, useLayoutEffect} from 'react';
+import React, {useEffect, useReducer, useState, useLayoutEffect, useRef} from 'react';
 import './App.css';
 import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
-import {localStorageDataManagementWithPromises} from "./features/common/services/data-services";
+import {
+    localDataService,
+    localStorageDataManagementWithPromises,
+    serverDataService
+} from "./features/common/services/data-services";
 import axios from "axios";
 import {BASE_URL} from "./features/app-constants";
 
@@ -20,13 +24,24 @@ function App() {
     const [serverConnection, setServerConnection] = useState(false);
     const [loading, setLoading] = useState(false);
     const [loadAgain, setLoadAgain] = useState(false);
+    const init = useRef(true);
+    // const firstUpdate = useRef(true);
 
+    //todo - make the DataService - NOT depend on store. Default is localDataService - V
+    const [dataService, setDataService] = useState(localDataService);
+
+    //Todo Convert it to use the local State DataService -V
     const getData = () => {
+        dispatchTodoAction({
+            type: 'LOADING',
+            loading: true
+        });
 
-        console.log(todosStore)
         console.log("getting the data from the   " + (serverConnection ? "Server" : "localstorage") + "...");
+        console.log("dataService = ", dataService);
+
         // localStorageDataManagementWithPromises('GET', null).then(data => {
-        todosStore.dataService.webService('GET', null).then(data => {
+        dataService.webService('GET', null).then(data => {
             console.log("Data =  ", data);
 
             dispatchTodoAction({
@@ -35,21 +50,16 @@ function App() {
             });
         }).catch(() => {
             console.log("Error with getting the data");
-        });
-        setTimeout(()=>{
-            todosStore.dataService.webService('GET', null).then(data => {
-                console.log("Data =  ", data);
-
-                dispatchTodoAction({
-                    type: 'GET',
-                    todos: data
-                });
-            }).catch(() => {
-                console.log("Error with getting the data");
+        }).finally(() => {
+            setLoading(false);
+            dispatchTodoAction({
+                type: 'LOADING',
+                loading: false
             });
-        },3000)
+        });
     }
 
+    //initial loading.
     useEffect(() => {
         console.log("getting the data from the localstorage...")
         localStorageDataManagementWithPromises('GET', null).then(data => {
@@ -61,18 +71,52 @@ function App() {
         }).catch(() => {
             console.log("Error with getting the data");
         });
-    },[]);
+    }, []);
+
+    //todo - Updating data do it happen after the dataService changed
     useLayoutEffect(() => {//layout because it affects the loading
+        if (init.current) {
+            init.current = false;
+            return;
+        }
+        console.log("updating data");
         if (serverConnection) {
             setLoading(true);
             console.log("getData - server  ? ", serverConnection);
-            dispatchTodoAction({
-                type: 'SERVER'
-            });
-
             axios.get(BASE_URL + "/test-server").then(() => {
                 console.log("server up");
                 getData();
+            }).catch(() => {
+                alert("server down");
+                setServerConnection(false);
+                setLoading(false);
+
+
+            }).finally(() => {
+
+            });
+        } else {
+            console.log("getData - server  ? ", serverConnection);
+            dispatchTodoAction({
+                type: 'LOCAL_STORAGE',
+            });
+            getData();
+        }
+    }, [dataService]);
+
+    useEffect(() => {
+        if (init.current) {
+            init.current = false;
+            return;
+        }
+        console.log("Setting data service ")
+        if (serverConnection) {
+            setLoading(true);
+            //Checking if server connected..
+            console.log("Checking if server connected.. ")
+            axios.get(BASE_URL + "/test-server").then(() => {
+                console.log("server up, setting serverDataService");
+                setDataService(serverDataService);
             }).catch(() => {
                 alert("server down");
                 setServerConnection(false);
@@ -80,19 +124,12 @@ function App() {
 
             }).finally(() => {
                 setLoading(false);
-                setLoadAgain(!loadAgain);
-
             });
+        } else {
+            console.log("Setting localStorage");
+            setDataService(localDataService);
         }
-        else {
-            console.log("getData - server  ? ", serverConnection);
-            dispatchTodoAction({
-                type:  'LOCAL_STORAGE',
-            });
-            getData();
-        }
-    }, [serverConnection])
-
+    }, [serverConnection]);
     // useEffect(() => {
     //     getData();
     // }, [loadAgain]);
@@ -122,8 +159,9 @@ function App() {
 
             </ul>
             {/*The todos component with todo's store to manage the data from one place*/}
+            {/*TODO - make a prop of the data service which will pass to the store and its Todo's childs. */}
             <Todos todosStore={todosStore} todosAction={dispatchTodoAction}/>
-            {loading && <div className="loader"></div>}
+            {loading || todosStore.loading && <div className="loader"></div>}
             <p>l22 = {loading + ""}</p>
 
         </div>

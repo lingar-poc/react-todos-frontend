@@ -181,3 +181,6 @@ export function serverDataManagementWithPromises(actionType, item) {
             return Promise.reject();
     }
 }
+
+export const localDataService = new DataService(localStorageDataManagementWithPromises);
+export const serverDataService = new DataService(serverDataManagementWithPromises);

@@ -3,7 +3,7 @@
  * @param todosStore the exist store with the current state
  * @param action - action that contain the passed state changes
  */
-import {DataService, localStorageDataManagementWithPromises, serverDataManagementWithPromises} from "./data-services";
+import {localDataService, serverDataService} from "./data-services";
 
 export function manageStore(todosStore, action) {
     console.log("manage store");
@@ -15,7 +15,7 @@ export function manageStore(todosStore, action) {
             }
         }
         case 'GET': {
-            console.log("get the data and assign it to the store. data =  ", todosStore);
+            console.log("get the data and assign it to the store. data =  ", action.todos);
             return {
                 ...todosStore,
                 todos: action.todos
@@ -76,5 +76,3 @@ export function manageStore(todosStore, action) {
 
 //setting two differents dataServices
 
-const localDataService = new DataService(localStorageDataManagementWithPromises);
-const serverDataService =  new DataService(serverDataManagementWithPromises);
