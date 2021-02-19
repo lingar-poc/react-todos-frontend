@@ -54,7 +54,7 @@ export function manageStore(todosStore, action) {
         }
 
         case 'LOCAL_STORAGE': {
-            console.log("Setting the data service to localstorage");
+            console.log("Setting the data service to localstorage Lingar");
             todosStore.dataService = localDataService;
             return {
                 ...todosStore

@@ -1,5 +1,6 @@
 import {v4 as uuidv4} from "uuid";
 import axios from "axios";
+import {BASE_URL} from "../../app-constants";
 
 const itemName = "todos";
 /**
@@ -99,17 +100,16 @@ export function serverDataManagementWithPromises(actionType, item) {
 
     switch (actionType) {
         case 'GET': {
-            alert("getData from service!");
-            return;
+            console.log("getData from service!");
             let data = [];
             //	// http://localhost:8080/ws/getTodos
-            // axios.get(""+"ws/getTodos")
-            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    return resolve(data);
-                }, delayDemo * 1000);
-            });
+            return axios.get(BASE_URL+"todoAction").then((res)=>res.data);
+            // localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
+            // return new Promise((resolve) => {
+            //     setTimeout(() => {
+            //         return resolve(data);
+            //     }, delayDemo * 1000);
+            // });
 
         }
         case 'POST': {

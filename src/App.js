@@ -4,8 +4,7 @@ import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
 import {localStorageDataManagementWithPromises} from "./features/common/services/data-services";
 import axios from "axios";
-
-export const BASE_URL = "http://localhost:8080/ws/";
+import {BASE_URL} from "./features/app-constants";
 
 function App() {
     //initializing data:
@@ -23,9 +22,11 @@ function App() {
     const [loadAgain, setLoadAgain] = useState(false);
 
     const getData = () => {
+        console.log("getData - server  ? ", serverConnection);
         dispatchTodoAction({
             type: serverConnection ? 'SERVER' : 'LOCAL_STORAGE',
         });
+        console.log(todosStore)
         console.log("getting the data from the   " + (serverConnection ? "Server" : "localstorage") + "...");
         // localStorageDataManagementWithPromises('GET', null).then(data => {
         todosStore.dataService.webService('GET', null).then(data => {
@@ -82,7 +83,7 @@ function App() {
     return (
         <div className="">
             <p>with the help of God</p>
-            <p>Done2 by Izhar Mashkif (lingar) , yimprogramming@gmail.com. <b>I am available for new projects</b> :) !
+            <p>Done by Izhar Mashkif (lingar) , yimprogramming@gmail.com. <b>I am available for new projects</b> :) !
             </p>
             {!loading ? <div>
                 <h2>Connected to {serverConnection ? "Server" : "localstorage"}</h2>
