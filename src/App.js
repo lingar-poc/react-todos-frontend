@@ -22,10 +22,7 @@ function App() {
     const [loadAgain, setLoadAgain] = useState(false);
 
     const getData = () => {
-        console.log("getData - server  ? ", serverConnection);
-        dispatchTodoAction({
-            type: serverConnection ? 'SERVER' : 'LOCAL_STORAGE',
-        });
+
         console.log(todosStore)
         console.log("getting the data from the   " + (serverConnection ? "Server" : "localstorage") + "...");
         // localStorageDataManagementWithPromises('GET', null).then(data => {
@@ -68,6 +65,10 @@ function App() {
     useLayoutEffect(() => {//layout because it affects the loading
         if (serverConnection) {
             setLoading(true);
+            console.log("getData - server  ? ", serverConnection);
+            dispatchTodoAction({
+                type: 'SERVER'
+            });
 
             axios.get(BASE_URL + "/test-server").then(() => {
                 console.log("server up");
@@ -84,6 +85,10 @@ function App() {
             });
         }
         else {
+            console.log("getData - server  ? ", serverConnection);
+            dispatchTodoAction({
+                type:  'LOCAL_STORAGE',
+            });
             getData();
         }
     }, [serverConnection])
