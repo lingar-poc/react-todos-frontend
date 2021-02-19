@@ -16,7 +16,8 @@ function App() {
 
     const initialTodos = {
         todos: todos,
-        dataService: null
+        dataService: null,
+        loading: false
 
     }
     //Instantiate the todos-store, with data, and with dispatching action (function that will happen in each dispatching of the action and will be manipulate the data
@@ -32,12 +33,14 @@ function App() {
 
     //Todo Convert it to use the local State DataService -V
     const getData = () => {
-        dispatchTodoAction({
-            type: 'LOADING',
-            loading: true
-        });
+        // dispatchTodoAction({
+        //     type: 'LOADING',
+        //     loading: true
+        // });
+
 
         console.log("getting the data from the   " + (serverConnection ? "Server" : "localstorage") + "...");
+        console.log("loading? " , todosStore.loading);
         console.log("dataService = ", dataService);
 
         // localStorageDataManagementWithPromises('GET', null).then(data => {
@@ -51,7 +54,6 @@ function App() {
         }).catch(() => {
             console.log("Error with getting the data");
         }).finally(() => {
-            setLoading(false);
             dispatchTodoAction({
                 type: 'LOADING',
                 loading: false
@@ -81,7 +83,10 @@ function App() {
         }
         console.log("updating data");
         if (serverConnection) {
-            setLoading(true);
+            dispatchTodoAction({
+                type: 'LOADING',
+                loading: true
+            });
             console.log("getData - server  ? ", serverConnection);
             axios.get(BASE_URL + "/test-server").then(() => {
                 console.log("server up");
@@ -89,8 +94,10 @@ function App() {
             }).catch(() => {
                 alert("server down");
                 setServerConnection(false);
-                setLoading(false);
-
+                dispatchTodoAction({
+                    type: 'LOADING',
+                    loading: false
+                });
 
             }).finally(() => {
 
@@ -111,8 +118,10 @@ function App() {
         }
         console.log("Setting data service ")
         if (serverConnection) {
-            setLoading(true);
-            //Checking if server connected..
+            dispatchTodoAction({
+                type: 'LOADING',
+                loading: true
+            });            //Checking if server connected..
             console.log("Checking if server connected.. ")
             axios.get(BASE_URL + "/test-server").then(() => {
                 console.log("server up, setting serverDataService");
@@ -123,7 +132,7 @@ function App() {
 
 
             }).finally(() => {
-                setLoading(false);
+
             });
         } else {
             console.log("Setting localStorage");

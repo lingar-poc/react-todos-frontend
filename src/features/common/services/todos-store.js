@@ -9,6 +9,7 @@ export function manageStore(todosStore, action) {
     console.log("manage store");
     switch (action.type) {
         case 'LOADING': {
+            console.log("change loading")
             return {
                 ...todosStore,
                 loading: action.loading
