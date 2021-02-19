@@ -16,6 +16,7 @@ export function localStorageDataManagementWithPromises(actionType, item) {
 
     switch (actionType) {
         case 'GET': {
+            console.log("get data from the local")
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
             return new Promise((resolve) => {

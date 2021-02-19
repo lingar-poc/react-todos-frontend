@@ -39,6 +39,18 @@ function App() {
         }).catch(() => {
             console.log("Error with getting the data");
         });
+        setTimeout(()=>{
+            todosStore.dataService.webService('GET', null).then(data => {
+                console.log("Data =  ", data);
+
+                dispatchTodoAction({
+                    type: 'GET',
+                    todos: data
+                });
+            }).catch(() => {
+                console.log("Error with getting the data");
+            });
+        },3000)
     }
 
     useEffect(() => {
