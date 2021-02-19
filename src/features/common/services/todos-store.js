@@ -3,6 +3,8 @@
  * @param todosStore the exist store with the current state
  * @param action - action that contain the passed state changes
  */
+import {DataService, localStorageDataManagementWithPromises, serverDataManagementWithPromises} from "./data-services";
+
 export function manageStore(todosStore, action) {
     console.log("manage store");
     switch (action.type) {
@@ -50,8 +52,29 @@ export function manageStore(todosStore, action) {
                 ...todosStore
             }
         }
+
+        case 'LOCAL_STORAGE': {
+            console.log("Setting the data service to localstorage");
+            todosStore.dataService = localDataService;
+            return {
+                ...todosStore
+            }
+        }
+
+        case 'SERVER': {
+            console.log("Setting the data service to SERVER");
+            todosStore.dataService = serverDataService;
+            return {
+                ...todosStore
+            }
+        }
         default:
             return todosStore;
     }
 
 }
+
+//setting two differents dataServices
+
+const localDataService = new DataService(localStorageDataManagementWithPromises);
+const serverDataService =  new DataService(serverDataManagementWithPromises);
