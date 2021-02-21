@@ -4,7 +4,11 @@ This project show a simple todo's application.
 You can clone  and run it as described below. 
 
 It's connected by default to the local-storage, and if you download 
-this project, and run it, you can also use it with server side. 
+this project :
+
+https://github.com/lingar-poc/springboot-mongos-todos 
+ 
+and run it, you can also use it with server side. 
 
 Done with useReducer from react-hooks, a tool for easily manage stores.
 
