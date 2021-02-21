@@ -102,11 +102,9 @@ export function serverDataManagementWithPromises(actionType, item) {
     switch (actionType) {
         case 'GET': {
             // console.log("getData from service!");
-            //Send call to http://localhost:8080/ws/getTodos
+            //Sends call to http://localhost:8080/ws/getTodos
             return axios.get(BASE_URL + "todoAction").then((res) => res.data);
         }
-
-        //Other calls still not working
         /**
          * Post to todoAction
          * Item, with description and mart (item here is described like that)
