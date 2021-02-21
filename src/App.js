@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState, useLayoutEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useReducer, useRef, useState} from 'react';
 import './App.css';
 import {Todos} from './features/todos/Todos';
 import {manageStore} from "./features/common/services/todos-store";
@@ -9,11 +9,7 @@ import {manageStore} from "./features/common/services/todos-store";
  * - Implement functions for serverSide.
  * - Make sure they are all working
  */
-import {
-    localDataService,
-    localStorageDataManagementWithPromises,
-    serverDataService
-} from "./features/common/services/data-services";
+import {localDataService, serverDataService} from "./features/common/services/data-services";
 import axios from "axios";
 import {BASE_URL} from "./features/app-constants";
 
