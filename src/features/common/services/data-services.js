@@ -131,8 +131,7 @@ export function serverDataManagementWithPromises(actionType, item) {
         }
         /**
          * Update to todoAction
-         * Item, with description and mart (item here is described like that), with id as simple string
-         * The id generated at server side and returns.
+         * Item, with id as simple string
          */
         case"UPDATE": {
             const config = {
@@ -141,30 +140,25 @@ export function serverDataManagementWithPromises(actionType, item) {
                 },
                 responseType: 'text'
             };
-            console.log("Update item mark at Server. id = ", item.id);
             return axios.put(BASE_URL + "todoAction", item.id, config)
                 .then(() => item);
         }
 
+        /**
+         * Delete to todoAction
+         * Item, with id as simple string
+         */
         case "DELETE": {
-            console.log("delete from localstorage... ")
-            let data;
-            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            let itemToRemove = data.findIndex((el) => {
-                return item.id === el.id
-            });
-
-            if (itemToRemove > -1) {
-                data.splice(itemToRemove, 1);
-                localStorage.setItem(itemName, JSON.stringify(data));
-
-            }
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    return resolve(item);
-                }, delayDemo * 1000);
-            });
-
+            console.log("delete from server... ");
+            const config = {
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                responseType: 'text',
+                data: item.id
+            };
+            return axios.delete(BASE_URL + "todoAction",  config)
+                .then(() => item);
         }
         default:
             return Promise.reject();

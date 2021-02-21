@@ -14,7 +14,7 @@ export function Todo(props) {
                     type: "LOADING",
                     loading: true
                 });
-                localStorageDataManagementWithPromises("DELETE", {id: props.id})
+                props.dataService.webService("DELETE", {id: props.id})
                     .then((item) => {
                         props.action({
                             type: "DELETE",
