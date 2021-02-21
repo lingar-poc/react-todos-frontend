@@ -16,7 +16,7 @@ export function manageStore(todosStore, action) {
             }
         }
         case 'GET': {
-            console.log("get the data and assign it to the store. data =  ", action.todos);
+            // console.log("get the data and assign it to the store. data =  ", todosStore);
             return {
                 ...todosStore,
                 todos: action.todos
@@ -53,27 +53,8 @@ export function manageStore(todosStore, action) {
                 ...todosStore
             }
         }
-
-        case 'LOCAL_STORAGE': {
-            console.log("Setting the data service to localstorage Lingar");
-            todosStore.dataService = localDataService;
-            return {
-                ...todosStore
-            }
-        }
-
-        case 'SERVER': {
-            console.log("Setting the data service to SERVER");
-            todosStore.dataService = serverDataService;
-            return {
-                ...todosStore
-            }
-        }
         default:
             return todosStore;
     }
 
 }
-
-//setting two differents dataServices
-

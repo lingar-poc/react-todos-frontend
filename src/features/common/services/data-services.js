@@ -16,7 +16,6 @@ export function localStorageDataManagementWithPromises(actionType, item) {
 
     switch (actionType) {
         case 'GET': {
-            console.log("get data from the local")
             let data = [];
             localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
             return new Promise((resolve) => {
@@ -101,18 +100,12 @@ export function serverDataManagementWithPromises(actionType, item) {
 
     switch (actionType) {
         case 'GET': {
-            console.log("getData from service!");
-            let data = [];
-            //	// http://localhost:8080/ws/getTodos
+            // console.log("getData from service!");
+            //Send call to http://localhost:8080/ws/getTodos
             return axios.get(BASE_URL+"todoAction").then((res)=>res.data);
-            // localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            // return new Promise((resolve) => {
-            //     setTimeout(() => {
-            //         return resolve(data);
-            //     }, delayDemo * 1000);
-            // });
-
         }
+
+        //Other call stile not working
         case 'POST': {
             console.log("adding item ", item)
 

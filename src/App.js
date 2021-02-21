@@ -127,7 +127,7 @@ function App() {
 
 
             <ul>
-                <li>Done  with useReducer from react-hooks, a tool for easily manage stores.</li>
+                <li>Done by useReducer from react-hooks, a tool for easily manage stores.</li>
                 <li>It's demonstrate working with promises, and then update the store.
                     You can change the delay time in:
                     <pre> features/common/services/data-services.js </pre>
@@ -145,7 +145,7 @@ function App() {
                        onChange={() => setServerConnection(!serverConnection)}
                        checked={serverConnection}/>
             </div> : "Trying to connect"}
-            {/*The todos component with todo's store to manage the data from one place*/}
+            {/*The todos component with todo's store for managing the data from one place*/}
             {/*TODO - make a prop of the data service which will pass to the store and its Todo's childs. */}
             <Todos todosStore={todosStore} todosAction={dispatchTodoAction}/>
             {todosStore.loading && <div className="loader"></div>}
