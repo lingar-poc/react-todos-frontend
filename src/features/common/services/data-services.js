@@ -8,9 +8,10 @@ const itemName = "todos";
  * @type {number}
  */
 const delayDemo = 1;//todo - interface with java script
-export function DataService(func)  {
+export function DataService(func) {
     this.webService = func;
 }
+
 export function localStorageDataManagementWithPromises(actionType, item) {
     console.log("localStorageDataManagementWithPromises");
 
@@ -102,7 +103,7 @@ export function serverDataManagementWithPromises(actionType, item) {
         case 'GET': {
             // console.log("getData from service!");
             //Send call to http://localhost:8080/ws/getTodos
-            return axios.get(BASE_URL+"todoAction").then((res)=>res.data);
+            return axios.get(BASE_URL + "todoAction").then((res) => res.data);
         }
 
         //Other calls still not working
@@ -122,22 +123,11 @@ export function serverDataManagementWithPromises(actionType, item) {
                     }, delayDemo * 1000);
                 });
             }
-            return axios.post(BASE_URL+"todoAction", item).then((res)=>{
-                console.log("response = ", res);
-                return res.data;
+            return axios.post(BASE_URL + "todoAction", item).then((res) => {
+                    console.log("response = ", res);
+                    return res.data;
                 }
-
             );
-            // let data = [];
-            // localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            // item['id'] = uuidv4();
-            // data.push(item);
-            // localStorage.setItem(itemName, JSON.stringify(data));
-            // return new Promise((resolve) => {
-            //     setTimeout(() => {
-            //         return resolve(item);
-            //     }, delayDemo * 1000);
-            // });
         }
 
         case"UPDATE": {
