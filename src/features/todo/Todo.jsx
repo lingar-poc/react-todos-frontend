@@ -35,7 +35,8 @@ export function Todo(props) {
                     type: "LOADING",
                     loading: true
                 });
-                localStorageDataManagementWithPromises("UPDATE", {id: props.id, mark: !props.mark})
+                // localStorageDataManagementWithPromises("UPDATE", {id: props.id, mark: !props.mark})
+                props.dataService.webService("UPDATE", {id: props.id, mark: !props.mark})
                     .then((item) => {
                         props.action({
                             type: "UPDATE",

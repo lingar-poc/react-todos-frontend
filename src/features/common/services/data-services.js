@@ -27,7 +27,7 @@ export function localStorageDataManagementWithPromises(actionType, item) {
 
         }
         case 'POST': {
-            console.log("adding item ", item)
+            console.log("adding item to localstorage ", item)
 
             //error demo:
             if (item.description === 'error') {
@@ -113,7 +113,7 @@ export function serverDataManagementWithPromises(actionType, item) {
          * The id generated at server side and returns.
          */
         case 'POST': {
-            console.log("adding item ", item)
+            console.log("adding item to server", item)
 
             //error demo:
             if (item.description === 'error') {
@@ -129,26 +129,21 @@ export function serverDataManagementWithPromises(actionType, item) {
                 }
             );
         }
-
+        /**
+         * Update to todoAction
+         * Item, with description and mart (item here is described like that), with id as simple string
+         * The id generated at server side and returns.
+         */
         case"UPDATE": {
-            console.log("Update item mark at localstorage. ")
-            let data;
-            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-
-            //getting the array index to update
-            let itemToUpdate = data.findIndex((el) => {
-                return item.id === el.id
-            });
-
-            if (itemToUpdate > -1) {
-                data[itemToUpdate].mark = item.mark;
-                localStorage.setItem(itemName, JSON.stringify(data));
-            }
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    return resolve(item);
-                }, delayDemo * 1000);
-            });
+            const config = {
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                responseType: 'text'
+            };
+            console.log("Update item mark at Server. id = ", item.id);
+            return axios.put(BASE_URL + "todoAction", item.id, config)
+                .then(() => item);
         }
 
         case "DELETE": {

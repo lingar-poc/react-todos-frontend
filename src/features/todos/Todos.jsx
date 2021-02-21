@@ -17,7 +17,8 @@ export function Todos(props) {
             todosList = props.todosStore.todos.map((item, idx) => {
                 return (
                     <div key={idx}>
-                        <Todo description={item.description} action={props.todosAction} id={item.id} mark={item.mark} dataService = {props.dataService}/>
+                        <Todo description={item.description} action={props.todosAction} id={item.id} mark={item.mark}
+                              dataService={props.dataService}/>
                     </div>
                 );
             });
