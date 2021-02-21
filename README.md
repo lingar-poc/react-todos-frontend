@@ -3,9 +3,10 @@
 This project show a simple todo's application. 
 You can clone  and run it as described below. 
 
-Done with useReducer from react-hooks, a tool for easily manage stores.
+It's connected by default to the local-storage, and if you download 
+this project, and run it, you can also use it with server side. 
 
-Done by Izhar Mashkif (lingar) , yimprogramming@gmail.com. I am available for new projects.
+Done with useReducer from react-hooks, a tool for easily manage stores.
 
 ## How to run the project
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
