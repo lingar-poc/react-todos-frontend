@@ -12,6 +12,7 @@ import {manageStore} from "./features/common/services/todos-store";
 import {localDataService, serverDataService} from "./features/common/services/data-services";
 import axios from "axios";
 import {BASE_URL} from "./features/app-constants";
+
 /** TODO - do that the serverConnection will be save on localStorage*/
 function App() {
     //initializing data:
@@ -25,10 +26,9 @@ function App() {
     }
     //Instantiate the todos-store, with data, and with dispatching action (function that will happen in each dispatching of the action and will be manipulate the data
     const [todosStore, dispatchTodoAction] = useReducer(manageStore, initialTodos);
-    const [serverConnection, setServerConnection] = useState(false);
-    const init = useRef(true);
+    const [serverConnection, setServerConnection] = useState(Boolean(localStorage.getItem("serverConnection")));//
     //This is the data service that used for getting data. It's conditionally can be for local or for server.
-    const [dataService, setDataService] = useState(localDataService);
+    const [dataService, setDataService] = useState((serverConnection ? serverDataService : localDataService));//localDataService
 
     //Function for get data from the service
     const getData = () => {
@@ -54,6 +54,35 @@ function App() {
             });
         });
     }
+
+    //When the serverConnection changed, we are respectively changing the dataService type.
+    useEffect(() => {
+        if (serverConnection) {
+            dispatchTodoAction({
+                type: 'LOADING',
+                loading: true
+            });
+            // console.log("Checking if server connected.. ");
+            axios.get(BASE_URL + "/test-server").then(() => {
+                console.log("server up, setting serverDataService");
+                setDataService(serverDataService);
+            }).catch(() => {
+                alert("server down - you need to run server project for use the server data!");
+                setServerConnection(false);
+                dispatchTodoAction({
+                    type: 'LOADING',
+                    loading: false
+                });
+
+
+            }).finally(() => {
+
+            });
+        } else {
+            console.log("Setting localStorage");
+            setDataService(localDataService);
+        }
+    }, [serverConnection]);
 
     //Updating/initializing data -  happens after the dataService changed
     useLayoutEffect(() => {//layout because it affects the loading on the view.
@@ -86,34 +115,6 @@ function App() {
         }
     }, [dataService]);
 
-    //When the serverConnection changed, we are respectively changing the dataService type.
-    useEffect(() => {
-        if (serverConnection) {
-            dispatchTodoAction({
-                type: 'LOADING',
-                loading: true
-            });
-            // console.log("Checking if server connected.. ");
-            axios.get(BASE_URL + "/test-server").then(() => {
-                console.log("server up, setting serverDataService");
-                setDataService(serverDataService);
-            }).catch(() => {
-                alert("server down - you need to run server project for use the server data!");
-                setServerConnection(false);
-                dispatchTodoAction({
-                    type: 'LOADING',
-                    loading: false
-                });
-
-
-            }).finally(() => {
-
-            });
-        } else {
-            console.log("Setting localStorage");
-            setDataService(localDataService);
-        }
-    }, [serverConnection]);
 
     return (
         <div className="">
@@ -146,7 +147,7 @@ function App() {
             {/*           checked={serverConnection}/>*/}
             {/*</div> : "Trying to connect"}*/}
 
-            {!todosStore.loading ?<div>
+            {!todosStore.loading ? <div>
                 <h2>Connected to {serverConnection ? "Server" : "localstorage"}</h2>
                 <h3>Switch to {!serverConnection ? "Server" : "localstorage"} connections</h3>
             </div> : <h1>Trying to connect, wait</h1>}
@@ -160,7 +161,7 @@ function App() {
             </label>
             {/*The todos component with todo's store for managing the data from one place*/}
             {/*TODO - make a prop of the data service which will pass to the store and its Todo's childs. */}
-            <Todos todosStore={todosStore} todosAction={dispatchTodoAction} dataService = {dataService}/>
+            <Todos todosStore={todosStore} todosAction={dispatchTodoAction} dataService={dataService}/>
             {todosStore.loading && <div className="loader"></div>}
 
         </div>
