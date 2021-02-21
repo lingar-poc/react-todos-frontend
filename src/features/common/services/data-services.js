@@ -105,7 +105,12 @@ export function serverDataManagementWithPromises(actionType, item) {
             return axios.get(BASE_URL+"todoAction").then((res)=>res.data);
         }
 
-        //Other call stile not working
+        //Other calls still not working
+        /**
+         * Post to todoAction
+         * Item, with description and mart (item here is described like that)
+         * The id generated at server side and returns.
+         */
         case 'POST': {
             console.log("adding item ", item)
 
@@ -117,16 +122,22 @@ export function serverDataManagementWithPromises(actionType, item) {
                     }, delayDemo * 1000);
                 });
             }
-            let data = [];
-            localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
-            item['id'] = uuidv4();
-            data.push(item);
-            localStorage.setItem(itemName, JSON.stringify(data));
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    return resolve(item);
-                }, delayDemo * 1000);
-            });
+            return axios.post(BASE_URL+"todoAction", item).then((res)=>{
+                console.log("response = ", res);
+                return res.data;
+                }
+
+            );
+            // let data = [];
+            // localStorage.getItem(itemName) ? data = JSON.parse(localStorage.getItem(itemName)) : data = [];
+            // item['id'] = uuidv4();
+            // data.push(item);
+            // localStorage.setItem(itemName, JSON.stringify(data));
+            // return new Promise((resolve) => {
+            //     setTimeout(() => {
+            //         return resolve(item);
+            //     }, delayDemo * 1000);
+            // });
         }
 
         case"UPDATE": {

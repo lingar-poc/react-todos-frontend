@@ -12,7 +12,7 @@ import {manageStore} from "./features/common/services/todos-store";
 import {localDataService, serverDataService} from "./features/common/services/data-services";
 import axios from "axios";
 import {BASE_URL} from "./features/app-constants";
-
+/** TODO - do that the serverConnection will be save on localStorage*/
 function App() {
     //initializing data:
     let todos = null;
@@ -160,7 +160,7 @@ function App() {
             </label>
             {/*The todos component with todo's store for managing the data from one place*/}
             {/*TODO - make a prop of the data service which will pass to the store and its Todo's childs. */}
-            <Todos todosStore={todosStore} todosAction={dispatchTodoAction}/>
+            <Todos todosStore={todosStore} todosAction={dispatchTodoAction} dataService = {dataService}/>
             {todosStore.loading && <div className="loader"></div>}
 
         </div>

@@ -17,7 +17,7 @@ export function Todos(props) {
             todosList = props.todosStore.todos.map((item, idx) => {
                 return (
                     <div key={idx}>
-                        <Todo description={item.description} action={props.todosAction} id={item.id} mark={item.mark}/>
+                        <Todo description={item.description} action={props.todosAction} id={item.id} mark={item.mark} dataService = {props.dataService}/>
                     </div>
                 );
             });
@@ -40,7 +40,8 @@ export function Todos(props) {
 
                         return;
                     }
-                    localStorageDataManagementWithPromises('POST', {description: description, mark: false})
+                    props.dataService.webService('POST', {description: description, mark: false})
+
                         .then(item => {
                                 props.todosAction({
                                     type: 'POST',
