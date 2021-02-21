@@ -122,7 +122,8 @@ function App() {
     return (
         <div className="">
             <p>with the help of God</p>
-            <p>Done with love by Izhar Mashkif (lingar) , yimprogramming@gmail.com. <b>I am available for new projects</b> :) !
+            <p>Done with love by Izhar Mashkif (lingar) , yimprogramming@gmail.com. <b>I am available for new
+                projects</b> :) !
             </p>
 
 
@@ -135,16 +136,32 @@ function App() {
                 <li style={{color: "red"}}>For see error you can add description with "error" text and see what's
                     happen
                 </li>
-                <li>For running it with server you need to pull and run the proper repository. </li>
+                <li>For running it with server you need to pull and run the proper repository.</li>
 
             </ul>
-            {!todosStore.loading ? <div>
+            {/*Simple check box*/}
+            {/*{!todosStore.loading ? <div>*/}
+            {/*    <h2>Connected to {serverConnection ? "Server" : "localstorage"}</h2>*/}
+            {/*    <h3>Switch to {!serverConnection ? "Server" : "localstorage"} connections</h3>*/}
+
+
+            {/*    <input type="checkbox"*/}
+            {/*           onChange={() => setServerConnection(!serverConnection)}*/}
+            {/*           checked={serverConnection}/>*/}
+            {/*</div> : "Trying to connect"}*/}
+
+            {!todosStore.loading ?<div>
                 <h2>Connected to {serverConnection ? "Server" : "localstorage"}</h2>
                 <h3>Switch to {!serverConnection ? "Server" : "localstorage"} connections</h3>
-                <input type="checkbox"
-                       onChange={() => setServerConnection(!serverConnection)}
+            </div> : <h1>Trying to connect, wait</h1>}
+
+            <br/><br/>
+
+            <label className="switch">
+                <input type="checkbox" onChange={() => setServerConnection(!serverConnection)}
                        checked={serverConnection}/>
-            </div> : "Trying to connect"}
+                <span className="slider"></span>
+            </label>
             {/*The todos component with todo's store for managing the data from one place*/}
             {/*TODO - make a prop of the data service which will pass to the store and its Todo's childs. */}
             <Todos todosStore={todosStore} todosAction={dispatchTodoAction}/>
