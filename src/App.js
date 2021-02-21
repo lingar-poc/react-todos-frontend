@@ -26,7 +26,7 @@ function App() {
     }
     //Instantiate the todos-store, with data, and with dispatching action (function that will happen in each dispatching of the action and will be manipulate the data
     const [todosStore, dispatchTodoAction] = useReducer(manageStore, initialTodos);
-    const [serverConnection, setServerConnection] = useState(Boolean(localStorage.getItem("serverConnection")));//
+    const [serverConnection, setServerConnection] = useState(localStorage.getItem("serverConnection") === "true");//
     //This is the data service that used for getting data. It's conditionally can be for local or for server.
     const [dataService, setDataService] = useState((serverConnection ? serverDataService : localDataService));//localDataService
 
@@ -65,6 +65,7 @@ function App() {
             // console.log("Checking if server connected.. ");
             axios.get(BASE_URL + "/test-server").then(() => {
                 console.log("server up, setting serverDataService");
+                localStorage.setItem("serverConnection", "true");
                 setDataService(serverDataService);
             }).catch(() => {
                 alert("server down - you need to run server project for use the server data!");
@@ -80,13 +81,14 @@ function App() {
             });
         } else {
             console.log("Setting localStorage");
+            localStorage.setItem("serverConnection", "false");
             setDataService(localDataService);
         }
     }, [serverConnection]);
 
     //Updating/initializing data -  happens after the dataService changed
     useLayoutEffect(() => {//layout because it affects the loading on the view.
-        console.log("updating data");
+        // console.log("updating data");
         if (serverConnection) {
             dispatchTodoAction({
                 type: 'LOADING',
